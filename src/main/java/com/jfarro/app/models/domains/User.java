@@ -1,6 +1,13 @@
 package com.jfarro.app.models.domains;
 
+import com.jfarro.app.validators.constraints.LastNamesRegex;
+import com.jfarro.app.validators.constraints.NamesRegex;
+import com.jfarro.app.validators.constraints.NroDocumentRegex;
+import com.jfarro.app.validators.constraints.PasswordRegex;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "tbl_usuarios")
@@ -11,31 +18,48 @@ public class User {
     private Long id;
 
     @Column(name = "nombres")
+    @NotBlank
+    @Size(max = 45)
+    @NamesRegex
     private String names;
 
     @Column(name = "ape_paterno")
+    @NotBlank
+    @Size(max = 20)
+    @LastNamesRegex
     private String apePat;
 
     @Column(name = "ape_materno")
+    @NotBlank
+    @Size(max = 20)
+    @LastNamesRegex
     private String apeMat;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_documento")
+    @NotNull
     private DocumentType documentType;
 
     @Column(name = "nro_documento")
+    @NotBlank
+    @NroDocumentRegex
     private String nroDocu;
 
     @Column(name = "email")
+    @NotBlank
     private String email;
 
     @Column(name = "username")
+    @NotBlank
     private String username;
 
     @Column(name = "password")
+    @NotBlank
+    @PasswordRegex
     private String password;
 
     @Embedded
+    @NotNull
     private UserHistory userHistory;
 
     public User() {

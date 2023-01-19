@@ -1,6 +1,12 @@
 package com.jfarro.app.models.domains;
 
+import com.jfarro.app.validators.constraints.LastNamesRegex;
+import com.jfarro.app.validators.constraints.NamesRegex;
+import com.jfarro.app.validators.constraints.PasswordRegex;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "tbl_clientes")
@@ -11,24 +17,37 @@ public class Client {
     private Long id;
 
     @Column(name = "nombres")
+    @NotBlank
+    @Size(max = 45)
+    @NamesRegex
     private String names;
 
     @Column(name = "ape_paterno")
+    @NotBlank
+    @Size(max = 20)
+    @LastNamesRegex
     private String apePat;
 
     @Column(name = "ape_materno")
+    @NotBlank
+    @Size(max = 20)
+    @LastNamesRegex
     private String apeMat;
 
     @Column(name = "email")
+    @NotBlank
     private String email;
 
     @Column(name = "password")
+    @NotBlank
+    @PasswordRegex
     private String password;
 
     @Column(name = "observacion")
     private String observation;
 
     @Embedded
+    @NotNull
     private UserHistory userHistory;
 
     public Client() {

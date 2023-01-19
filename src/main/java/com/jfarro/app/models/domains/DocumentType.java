@@ -1,6 +1,7 @@
 package com.jfarro.app.models.domains;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "tbl_tipo_documentos")
@@ -11,6 +12,7 @@ public class DocumentType {
     private Long id;
 
     @Column(name = "nombre")
+    @NotBlank
     private String name;
 
     public Long getId() {

@@ -1,6 +1,8 @@
 package com.jfarro.app.models.domains;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tbl_sub_categorias")
@@ -11,6 +13,7 @@ public class ProductSubCategory {
     private Long id;
 
     @Column(name = "nombre")
+    @NotBlank
     private String name;
 
     @Column(name = "descripcion")
@@ -18,9 +21,11 @@ public class ProductSubCategory {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_categoria")
+    @NotNull
     private ProductCategory category;
 
     @Embedded
+    @NotNull
     private UserHistory userHistory;
 
     public ProductSubCategory() {

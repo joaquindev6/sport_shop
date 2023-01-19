@@ -1,6 +1,10 @@
 package com.jfarro.app.models.domains;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tbl_productos")
@@ -11,12 +15,18 @@ public class Product {
     private Long id;
 
     @Column(name = "nombre")
+    @NotBlank
     private String name;
 
     @Column(name = "cantidad")
+    @NotNull
+    @Min(0)
+    @Max(500)
     private Integer amount;
 
     @Column(name = "precio")
+    @NotNull
+    @Min(0)
     private Double price;
 
     @Column(name = "descripcion")
@@ -24,13 +34,16 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_sub_categoria")
+    @NotNull
     private ProductSubCategory subCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_marca")
+    @NotNull
     private Mark mark;
 
     @Embedded
+    @NotNull
     private UserHistory userHistory;
 
     public Product() {

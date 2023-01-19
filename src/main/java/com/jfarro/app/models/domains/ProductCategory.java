@@ -1,6 +1,8 @@
 package com.jfarro.app.models.domains;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tbl_categorias")
@@ -11,12 +13,14 @@ public class ProductCategory {
     private Long id;
 
     @Column(name = "nombre")
+    @NotBlank
     private String name;
 
     @Column(name = "descripcion")
     private String description;
 
     @Embedded
+    @NotNull
     private UserHistory userHistory;
 
     public ProductCategory() {

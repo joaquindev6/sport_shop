@@ -1,7 +1,9 @@
 package com.jfarro.app.models.domains;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -9,19 +11,37 @@ import java.time.LocalDate;
 public class UserHistory {
 
     @Column(name = "estado")
+    @NotNull
     private Byte state;
 
     @Column(name = "user_reg")
+    @NotBlank
     private String userReg;
 
     @Column(name = "fecha_reg")
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateReg;
 
     @Column(name = "user_mod")
+    @NotBlank
     private String userMod;
 
     @Column(name = "fecha_mod")
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateMod;
+
+    @PrePersist
+    public void prePersist() {
+        this.state = 1;
+        this.dateReg = LocalDate.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.dateMod = LocalDate.now();
+    }
 
     public Byte getState() {
         return state;

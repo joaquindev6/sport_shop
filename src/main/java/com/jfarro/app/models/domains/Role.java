@@ -1,6 +1,9 @@
 package com.jfarro.app.models.domains;
 
+import com.jfarro.app.validators.constraints.RoleCodeRegex;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tbl_roles")
@@ -11,15 +14,19 @@ public class Role {
     private Long id;
 
     @Column(name = "codigo")
+    @NotBlank
+    @RoleCodeRegex
     private String code;
 
     @Column(name = "nombre")
+    @NotBlank
     private String name;
 
     @Column(name = "descripcion")
     private String description;
 
     @Embedded
+    @NotNull
     private UserHistory userHistory;
 
     public Role() {
