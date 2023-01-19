@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <span th:replace="tienda/component/base :: head"></span>
+    <title>Futbol</title>
+</head>
+<body>
+    <header th:replace="tienda/component/base :: menu"></header>
+    <div class="container">
+        <div class="row mt-5 mb-2">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+                    <li class="breadcrumb-item"><a href="#">Futbol</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Chimpunes</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row g-3 mb-4">
+            <div class="col-lg-3">
+                <div class="card shadow-sm">
+                    <img th:src="@{/tienda/img/Chimpunes_X_Speedportal.1_Pasto.jpg}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Chimpunes X Speedportal+ Pasto Natural Seco</h5>
+                        <div class="card-text">Stock: 10</div>
+                        <div class="card-text fst-italic fw-semibold">Precio: S/999</div>
+                        <div class="d-grid mt-3">
+                            <a class="btn btn-success" href=""><i class="fa-solid fa-cart-shopping"></i> Añadir al carrito</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card shadow-sm">
+                    <div class="d-flex justify-content-center">
+                        <img th:src="@{/tienda/img/Chimpunes_X_Speedportal.1_Pasto.jpg}" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Chimpunes X Speedportal+ Pasto Natural Seco</h5>
+                        <div class="card-text">Stock: 10</div>
+                        <div class="card-text fst-italic fw-semibold">Precio: S/999</div>
+                        <div class="d-grid mt-3">
+                            <a class="btn btn-success" href=""><i class="fa-solid fa-cart-shopping"></i> Añadir al carrito</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card shadow-sm">
+                    <div class="d-flex justify-content-center">
+                        <img th:src="@{/tienda/img/Chimpunes_X_Speedportal.1_Pasto.jpg}" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Chimpunes X Speedportal+ Pasto Natural Seco</h5>
+                        <div class="card-text">Stock: 10</div>
+                        <div class="card-text fst-italic fw-semibold">Precio: S/999</div>
+                        <div class="d-grid mt-3">
+                            <a class="btn btn-success" href=""><i class="fa-solid fa-cart-shopping"></i> Añadir al carrito</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card shadow-sm">
+                    <img th:src="@{/tienda/img/Chimpunes_X_Speedportal.1_Pasto.jpg}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Chimpunes X Speedportal+ Pasto Natural Seco</h5>
+                        <div class="card-text">Stock: 10</div>
+                        <div class="card-text fst-italic fw-semibold">Precio: S/999</div>
+                        <div class="d-grid mt-3">
+                            <a class="btn btn-success" href=""><i class="fa-solid fa-cart-shopping"></i> Añadir al carrito</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="tienda/component/base :: footer"></footer>
+    <span th:replace="tienda/component/base :: scripts"></span>
+</body>
+</html>
