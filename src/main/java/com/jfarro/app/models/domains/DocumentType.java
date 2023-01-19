@@ -3,9 +3,15 @@ package com.jfarro.app.models.domains;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Entity
 @Table(name = "tbl_tipo_documentos")
-public class DocumentType {
+public class DocumentType implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
