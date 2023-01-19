@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
-    <link rel="stylesheet" href="framework/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/tienda/frameworks/booststrap/css/bootstrap.min.css}">
     <script src="https://kit.fontawesome.com/82ec21a6d1.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -134,16 +134,16 @@
                 <div id="carouselExampleFade" class="carousel slide carousel-fade mt-4">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="img/Zapatillas_adidas_4D_FWD_Pulse_N.jpg" class="d-block w-100" alt="...">
+                            <img th:src="@{/tienda/img/Zapatillas_adidas_4D_FWD_Pulse_N.jpg}" class="d-block w-100" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="img/Zapatillas_de_Running_adidas_4DF.jpg" class="d-block w-100" alt="...">
+                            <img th:src="@{/tienda/img/Zapatillas_de_Running_adidas_4DF.jpg}" class="d-block w-100" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="img/Zapatillas_De_Running_Adidas_Adi.jpg" class="d-block w-100" alt="...">
+                            <img th:src="@{/tienda/img/Zapatillas_De_Running_Adidas_Adi.jpg}" class="d-block w-100" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="img/Zapatillas_EQ21_Run_Negro_GY2190.jpg" class="d-block w-100" alt="...">
+                            <img th:src="@{/tienda/img/Zapatillas_EQ21_Run_Negro_GY2190.jpg}" class="d-block w-100" alt="...">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
@@ -161,16 +161,16 @@
                 <div id="carousel-ropa" class="carousel slide carousel-fade mt-4">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="img/Zapatillas_adidas_4D_FWD_Pulse_N.jpg" class="d-block w-100" alt="...">
+                            <img th:src="@{/tienda/img/Zapatillas_adidas_4D_FWD_Pulse_N.jpg}" class="d-block w-100" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="img/Zapatillas_de_Running_adidas_4DF.jpg" class="d-block w-100" alt="...">
+                            <img th:src="@{/tienda/img/Zapatillas_de_Running_adidas_4DF.jpg}" class="d-block w-100" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="img/Zapatillas_De_Running_Adidas_Adi.jpg" class="d-block w-100" alt="...">
+                            <img th:src="@{/tienda/img/Zapatillas_De_Running_Adidas_Adi.jpg}" class="d-block w-100" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="img/Zapatillas_EQ21_Run_Negro_GY2190.jpg" class="d-block w-100" alt="...">
+                            <img th:src="@{/tienda/img/Zapatillas_EQ21_Run_Negro_GY2190.jpg}" class="d-block w-100" alt="...">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carousel-ropa" data-bs-slide="prev">
@@ -188,16 +188,16 @@
                 <div id="carousel-accesorios" class="carousel slide carousel-fade mt-4">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="img/Zapatillas_adidas_4D_FWD_Pulse_N.jpg" class="d-block w-100" alt="...">
+                            <img th:src="@{/tienda/img/Zapatillas_adidas_4D_FWD_Pulse_N.jpg}" class="d-block w-100" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="img/Zapatillas_de_Running_adidas_4DF.jpg" class="d-block w-100" alt="...">
+                            <img th:src="@{/tienda/img/Zapatillas_de_Running_adidas_4DF.jpg}" class="d-block w-100" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="img/Zapatillas_De_Running_Adidas_Adi.jpg" class="d-block w-100" alt="...">
+                            <img th:src="@{/tienda/img/Zapatillas_De_Running_Adidas_Adi.jpg}" class="d-block w-100" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="img/Zapatillas_EQ21_Run_Negro_GY2190.jpg" class="d-block w-100" alt="...">
+                            <img th:src="@{/tienda/img/Zapatillas_EQ21_Run_Negro_GY2190.jpg}" class="d-block w-100" alt="...">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carousel-accesorios" data-bs-slide="prev">
@@ -325,6 +325,6 @@
             </div>
         </section>
     </footer>
-    <script src="framework/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/tienda/frameworks/booststrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

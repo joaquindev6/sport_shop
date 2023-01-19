@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito</title>
-    <link rel="stylesheet" href="framework/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/tienda/frameworks/booststrap/css/bootstrap.min.css}">
     <script src="https://kit.fontawesome.com/82ec21a6d1.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -131,7 +131,7 @@
         <div class="card mt-5 mb-5">
             <div class="row g-0">
                 <div class="col-md-6 d-flex justify-content-center">
-                    <img src="img/registrocliente.png" class="img-fluid rounded-start" alt="...">
+                    <img th:src="@{/tienda/img/registrocliente.png}" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col-md-6">
                     <div class="card-body">
@@ -268,6 +268,6 @@
             </div>
         </section>
     </footer>
-    <script src="framework/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/tienda/frameworks/booststrap/css/bootstrap.min.css}"></script>
 </body>
 </html>

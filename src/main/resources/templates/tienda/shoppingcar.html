@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito</title>
-    <link rel="stylesheet" href="framework/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/tienda/frameworks/booststrap/css/bootstrap.min.css}">
     <script src="https://kit.fontawesome.com/82ec21a6d1.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -140,7 +140,7 @@
                     <form action="" method="post">
                         <div class="row card-body m-2 car-container">
                             <div class="col-lg-6 col-xl-3 car-image">
-                                <img class="img-fluid" src="img/Chimpunes_X_Speedportal.1_Pasto.jpg"/>                              
+                                <img class="img-fluid" th:src="@{/tienda/img/Chimpunes_X_Speedportal.1_Pasto.jpg}"/>
                             </div>
                             <div class="col-lg-6 col-xl-7 car-data">
                                 <h5 class="pe-1">MSI Gaming GeForce RTX 3060 Ti LHR 8 GB GDRR6 256 bits HDMI/DP Nvlink Torx Fan</h5>
@@ -304,6 +304,6 @@
             </div>
         </section>
     </footer>
-    <script src="framework/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/tienda/frameworks/booststrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
