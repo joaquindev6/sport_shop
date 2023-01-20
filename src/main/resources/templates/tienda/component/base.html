@@ -57,8 +57,8 @@
                                 DEPORTE
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="dropend ms-2">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                <li class="dropend">
+                                    <a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                         aria-expanded="false">
                                         Futbol
                                     </a>
@@ -104,25 +104,28 @@
                                 <i class="fa-solid fa-user"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="dropstart ms-2">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                <li class="dropstart">
+                                    <a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                         data-bs-auto-close="outside" aria-expanded="false">
                                         Iniciar Sesión
                                     </a>
                                     <form class="dropdown-menu p-3" style="width: 300px;">
                                         <div class="mb-3">
-                                            <label for="email" class="form-label">Correo electrónico:</label>
-                                            <input type="email" class="form-control" id="email" />
+                                            <label for="email1" class="form-label">Correo electrónico:</label>
+                                            <input type="email" class="form-control" id="email1" />
                                         </div>
                                         <div class="mb-3">
-                                            <label for="password" class="form-label">Contraseña:</label>
-                                            <input type="password" class="form-control" id="password" />
+                                            <label for="passwordd" class="form-label">Contraseña:</label>
+                                            <input type="password" class="form-control" id="passwordd" />
                                         </div>
                                         <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
                                     </form>
                                 </li>
-                                <li><a class="dropdown-item" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
-                                        href="register-client.html">Registrate Gratis</a></li>
+                                <li>
+                                    <a class="dropdown-item" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
+                                        href="">Registrate Gratis</a>
+                                </li>
+                                <li><a class="dropdown-item" href="">Cerrar Sesión</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -137,37 +140,42 @@
             </div>
             <div class="offcanvas-body">
                 <h5 class="card-title mb-4">Ingrese sus datos personales</h5>
-                <form>
+                <form th:action="@{/save-client}" th:object="${client}" method="post">
                     <div class="mb-3">
                         <label for="names" class="form-label">Nombres:</label>
-                        <input type="names" class="form-control" id="names" />
+                        <input type="text" class="form-control" id="names" th:field="*{names}"/>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('names')}" th:errors="*{names}"></div>
                     </div>
                     <div class="row mb-3 g-3">
                         <div class="col-6">
                             <label for="apePat" class="form-label">Apellido paterno:</label>
-                            <input type="text" class="form-control" id="apePat" />
+                            <input type="text" class="form-control" id="apePat" th:field="*{apePat}"/>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('apePat')}" th:errors="*{apePat}"></div>
                         </div>
                         <div class="col-6">
                             <label for="apeMat" class="form-label">Apellido materno:</label>
-                            <input type="apeMat" class="form-control" id="apeMat" />
+                            <input type="text" class="form-control" id="apeMat" th:field="*{apeMat}"/>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('apeMat')}" th:errors="*{apeMat}"></div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo electrónico:</label>
-                        <input type="names" class="form-control" id="email" />
+                        <input type="text" class="form-control" id="email" th:field="*{email}"/>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                     </div>
                     <div class="row mb-3 g-3">
                         <div class="col-6">
-                            <label for="username" class="form-label">Contraseña:</label>
-                            <input type="password" class="form-control" id="username" />
+                            <label for="password" class="form-label">Contraseña:</label>
+                            <input type="password" class="form-control" id="password" th:field="*{password}"/>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
                         </div>
                         <div class="col-6">
                             <label for="passconfir" class="form-label">Confirmar contraseña:</label>
-                            <input type="password" class="form-control" id="passconfir" />
+                            <input type="password" class="form-control" id="passconfir" name="passconfirm"/>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input type="submit" class="btn btn-primary" value="Registrar" />
+                        <input type="submit" class="btn btn-primary" value="Registrar"/>
                     </div>
                 </form>
                 <div class="mt-3">
@@ -176,6 +184,13 @@
             </div>
         </div>
     </header>
+    <span th:fragment="alerts">
+        <div th:object="${client}" th:remove="tag">
+            <div th:if="${#fields.hasErrors('*')}" class="row mt-5 alert alert-danger">
+                <div th:each="err : ${#fields.errors('*')}" th:text="${err}"></div>
+            </div>
+        </div>
+    </span>
     <footer th:fragment="footer" class="bg-secondary">
         <section class="container">
             <div class="row mt-3">

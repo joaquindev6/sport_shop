@@ -123,4 +123,18 @@ public class Client implements Serializable {
     public void setUserHistory(UserHistory userHistory) {
         this.userHistory = userHistory;
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", names='" + names + '\'' +
+                ", apePat='" + apePat + '\'' +
+                ", apeMat='" + apeMat + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", observation='" + observation + '\'' +
+                ", userHistory=" + userHistory +
+                '}';
+    }
 }

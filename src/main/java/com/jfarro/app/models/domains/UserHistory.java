@@ -17,7 +17,7 @@ public class UserHistory implements Serializable {
 
     @Column(name = "estado")
     @NotNull
-    private Byte state;
+    private Byte state = 1;
 
     @Column(name = "user_reg")
     @NotBlank
@@ -29,17 +29,16 @@ public class UserHistory implements Serializable {
     private LocalDate dateReg;
 
     @Column(name = "user_mod")
-    @NotBlank
     private String userMod;
 
     @Column(name = "fecha_mod")
-    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateMod;
 
     @PrePersist
     public void prePersist() {
         this.state = 1;
+        this.userReg = "TIENDA";
         this.dateReg = LocalDate.now();
     }
 
@@ -86,5 +85,16 @@ public class UserHistory implements Serializable {
 
     public void setDateMod(LocalDate dateMod) {
         this.dateMod = dateMod;
+    }
+
+    @Override
+    public String toString() {
+        return "UserHistory{" +
+                "state=" + state +
+                ", userReg='" + userReg + '\'' +
+                ", dateReg=" + dateReg +
+                ", userMod='" + userMod + '\'' +
+                ", dateMod=" + dateMod +
+                '}';
     }
 }

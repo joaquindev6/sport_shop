@@ -17,7 +17,7 @@ public class UtilValidation {
                     errors.rejectValue("email", "EmailRegex.email.validation4");
                 } else if (!data[0].matches("[a-zA-Z0-9.]+")) { //Valida si hay caracteres especiales aparte del punto
                     errors.rejectValue("email", "EmailRegex.email.invalid");
-                } else if (data[0].matches("([a-zA-Z0-9.]+){6,30}")) { //Valida si tiene un minimo de 6 y maximo de 30
+                } else if (!data[0].matches("([a-zA-Z0-9.]+){6,30}")) { //Valida si tiene un minimo de 6 y maximo de 30
                     errors.rejectValue("email", "EmailRegex.email.validation6");
                 }
             } else {

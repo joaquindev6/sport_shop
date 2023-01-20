@@ -1,5 +1,6 @@
 package com.jfarro.app.controllers;
 
+import com.jfarro.app.models.domains.Client;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class TiendaCarritoController {
 
     @GetMapping({"", "/"})
-    public String showCarrito() {
+    public String showCarrito(Client client) {
         return "tienda/shoppingcar";
     }
 }

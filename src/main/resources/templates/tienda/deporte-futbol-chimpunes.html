@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <span th:replace="tienda/component/base :: head"></span>
+    <span th:replace="~{tienda/component/base :: head}"></span>
     <title>Futbol</title>
 </head>
 <body>
-    <header th:replace="tienda/component/base :: menu"></header>
+    <header th:replace="~{tienda/component/base :: menu}"></header>
     <div class="container">
         <div class="row mt-5 mb-2">
             <nav aria-label="breadcrumb">
@@ -75,7 +75,7 @@
             </div>
         </div>
     </div>
-    <footer th:replace="tienda/component/base :: footer"></footer>
-    <span th:replace="tienda/component/base :: scripts"></span>
+    <footer th:replace="~{tienda/component/base :: footer}"></footer>
+    <span th:replace="~{tienda/component/base :: scripts}"></span>
 </body>
 </html>
