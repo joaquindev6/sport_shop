@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <span th:fragment="head">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <!-- Icono pestaña -->
+        <link th:href="@{/sistema/img/favicon.png}" rel="icon"/>
+        
+        <!-- Archivos CSS -->
+        <link th:href="@{/sistema/templates/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+        <link th:href="@{/sistema/templates/bootstrap/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet"/>
+        <link th:href="@{/sistema/templates/datatables/datatables.min.css}" rel="stylesheet"/>
+        <link th:href="@{/sistema/css/style.css}" rel="stylesheet"/>
+    </span>
+</head>
+<body>
+    <header th:fragment="header">
+        <!-- Cabecera -->
+        <header id="header" class="header fixed-top d-flex align-items-center">
+        
+            <!-- Logo y nombre del sistema -->
+            <div class="d-flex align-items-center justify-content-between">
+                <a href="" class="logo d-flex align-items-center">
+                    <img src="" alt="">
+                    <span class="d-none d-lg-block">JC System</span>
+                </a>
+                <i class="bi bi-list toggle-sidebar-btn"></i> <!-- Icono de menu -->
+            </div>
+        
+            <!-- Menu perfil -->
+            <nav class="header-nav ms-auto">
+                <ul class="d-flex align-items-center">
+                    <li class="nav-item dropdown pe-3">
+        
+                        <!-- Imagen de perfil -->
+                        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                            <img src="" alt="Profile" class="rounded-circle">
+                            <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+                        </a>
+        
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                            <li class="dropdown-header">
+                                <h6></h6>
+                                <span></span>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+        
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="">
+                                    <i class="bi bi-person"></i>
+                                    <span>Mi perfil</span>
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+        
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span>Cerrar sesión</span>
+                                </a>
+                            </li>
+                        </ul>
+        
+                    </li>
+                </ul>
+            </nav>
+        </header>
+    </header>
+    
+    <nav th:fragment="menu">
+        <!-- Menu -->
+        <aside id="sidebar" class="sidebar">
+            <ul class="sidebar-nav" id="sidebar-nav">
+
+                <li class="nav-item">
+                    <a th:class="${indexActive != null ? 'nav-link' : 'nav-link collapsed'}" th:href="@{/system-sport-shop}">
+                        <i class="bi bi-grid"></i>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a th:class="${usersActive != null || rolesActive != null || clientsActive != null ? 'nav-link' : 'nav-link collapsed'}" data-bs-target="#control" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-journal-text"></i><span>Control</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="control" th:class="${usersActive != null || rolesActive != null || clientsActive != null ? 'nav-content collapse show' : 'nav-content collapse'}" data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a th:href="@{/system-sport-shop/control/usuarios}" th:class="${usersActive != null ? 'active' : ''}">
+                                <i class="bi bi-circle"></i><span>Usuarios</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/system-sport-shop/control/roles}" th:class="${rolesActive != null ? 'active' : ''}">
+                                <i class="bi bi-circle"></i><span>Roles</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/system-sport-shop/control/clientes}" th:class="${clientsActive != null ? 'active' : ''}">
+                                <i class="bi bi-circle"></i><span>Clientes</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a th:class="${productsActive != null || catesActive != null || subcatesActive != null || marksActive != null ? 'nav-link' : 'nav-link collapsed'}" data-bs-target="#inventory" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-boxes"></i><span>Inventario</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="inventory" th:class="${productsActive != null || catesActive != null || subcatesActive != null || marksActive != null ? 'nav-content collapse show' : 'nav-content collapse'}" data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a th:href="@{/system-sport-shop/inventario/productos}" th:class="${productsActive != null ? 'active' : ''}">
+                                <i class="bi bi-circle"></i><span>Productos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/system-sport-shop/inventario/categorias}" th:class="${catesActive != null ? 'active' : ''}">
+                                <i class="bi bi-circle"></i><span>Categorías</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/system-sport-shop/inventario/sub-categorias}" th:class="${subcatesActive != null ? 'active' : ''}">
+                                <i class="bi bi-circle"></i><span>Sub Categorías</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/system-sport-shop/inventario/marcas}" th:class="${marksActive != null ? 'active' : ''}">
+                                <i class="bi bi-circle"></i><span>Marcas</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+        
+                <li class="nav-heading">Información</li>
+        
+                <li class="nav-item">
+                    <a class="nav-link collapsed">
+                        <span>&copy; Copyright JC System</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+    </nav>
+    
+    <span th:fragment="scripts">
+        <!-- Archivos JavaScript -->
+        <script th:src="@{/sistema/templates/bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <script th:src="@{/sistema/js/jquery.slim.min.js}"></script>
+        <script th:src="@{/sistema/templates/datatables/datatables.min.js}"></script>
+        <script th:src="@{/sistema/js/tabla-edit.js}"></script>
+        <script th:src="@{/sistema/js/main.js}"></script>
+    </span>
+</body>
+</html>

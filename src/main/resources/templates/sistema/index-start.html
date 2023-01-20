@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <span th:replace="~{sistema/component/base :: head}"></span>
+  <title>Inicio | JC System</title>
+</head>
+<body>
+  <header th:replace="~{sistema/component/base :: header}"></header>
+
+  <nav th:replace="~{sistema/component/base :: menu}"></nav>
+
+  <!-- Contenido -->
+  <main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Estadísticas</h1>
+    </div>
+
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Tarjeta usuarios registrados -->
+        <div class="col-md-6 col-lg-3">
+          <a href="">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Usuarios</h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-people"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6></h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        
+        <!-- Tarjeta productos registrados -->
+        <div class="col-md-6 col-lg-3">
+          <a href="">
+            <div class="card info-card revenue-card">
+              <div class="card-body">
+                <h5 class="card-title">Productos</h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-boxes"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6></h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        
+        <!-- Tarjeta de categorias de productos -->
+        <div class="col-md-6 col-lg-3">
+          <a href="">
+            <div class="card info-card customers-card">
+              <div class="card-body">
+                <h5 class="card-title">Categorías de productos</h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-card-list"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6></h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        
+        <!-- Tarjeta de marcas de productos -->
+        <div class="col-md-6 col-lg-3">
+          <a href="">
+            <div class="card info-card marks-card">
+              <div class="card-body">
+                <h5 class="card-title">Marcas de productos</h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-bookmark-check"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6></h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <span th:replace="~{sistema/component/base :: scripts}"></span>
+</body>
+</html>
