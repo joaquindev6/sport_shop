@@ -1,16 +1,20 @@
 package com.jfarro.app.models.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.jfarro.app.validators.constraints.LastNamesRegex;
 import com.jfarro.app.validators.constraints.NamesRegex;
 import com.jfarro.app.validators.constraints.NroDocumentRegex;
 import com.jfarro.app.validators.constraints.PasswordRegex;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tbl_usuarios")
@@ -43,6 +47,7 @@ public class User implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_documento")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) //Omitimos el cache, por eso aveces da error de serializable
     @NotNull
     private DocumentType documentType;
 
@@ -64,11 +69,26 @@ public class User implements Serializable {
     @PasswordRegex
     private String password;
 
+    @Column(name = "observacion")
+    private String observation;
+
     @Embedded
     @NotNull
     private UserHistory userHistory;
 
+    @ManyToMany
+    @JoinTable(
+            name = "tbl_usuarios_roles",
+            joinColumns = @JoinColumn(name = "id_usuario"),
+            inverseJoinColumns = {@JoinColumn(name = "id_rol")},
+            uniqueConstraints = {
+                    @UniqueConstraint(columnNames = {"id_usuario", "id_rol"})
+            })
+    @NotEmpty
+    private List<Role> roles;
+
     public User() {
+        this.roles = new ArrayList<>();
         this.userHistory = new UserHistory();
     }
 
@@ -144,11 +164,45 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
+    }
+
     public UserHistory getUserHistory() {
         return userHistory;
     }
 
     public void setUserHistory(UserHistory userHistory) {
         this.userHistory = userHistory;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", names='" + names + '\'' +
+                ", apePat='" + apePat + '\'' +
+                ", apeMat='" + apeMat + '\'' +
+                ", documentType=" + documentType +
+                ", nroDocu='" + nroDocu + '\'' +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", observation='" + observation + '\'' +
+                ", userHistory=" + userHistory +
+                ", roles=" + roles +
+                '}';
     }
 }
