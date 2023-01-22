@@ -32,20 +32,19 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Client> findById(Long id) {
+    public Optional<Client> findByIdClient(Long id) {
         return clientRepository.findById(id);
     }
 
     @Override
     @Transactional
-    public void save(Client client) {
+    public void saveClient(Client client) {
         clientRepository.save(client);
     }
 
     @Override
     @Transactional
-    public void delete(Long id) {
-        byte state = 0;
+    public void updateStateClient(Byte state, Long id) {
         clientRepository.updateState(state, id);
     }
 }

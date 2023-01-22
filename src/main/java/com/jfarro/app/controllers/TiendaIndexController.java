@@ -4,7 +4,6 @@ import com.jfarro.app.editors.StringUppercaseEditor;
 import com.jfarro.app.models.domains.Client;
 import com.jfarro.app.services.ClientService;
 import com.jfarro.app.validators.ClientValidator;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @SessionAttributes("client") //Guarda el cliente en la sesion cuando se registra o se inicia sesion
@@ -52,7 +50,7 @@ public class TiendaIndexController {
             return "tienda/index";
         }
 
-        clientService.save(client);
+        clientService.saveClient(client);
         return "redirect:/";
     }
 }

@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface ClientService {
     List<Client> findALlClients();
     Page<Client> findAllPagesClients(Pageable pageable);
-    Optional<Client> findById(Long id);
-    void save(Client client);
-    void delete(Long id);
+    Optional<Client> findByIdClient(Long id);
+    void saveClient(Client client);
+    void updateStateClient(Byte state, Long id);
 }

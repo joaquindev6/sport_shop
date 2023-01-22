@@ -1,154 +1,161 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <span th:replace="~{sistema/component/base :: head}"></span>
-  <title>Productos | JC System</title>
+    <span th:replace="~{sistema/component/base :: head}"></span>
+    <title>Productos | JC System</title>
 </head>
 <body>
-  <header th:replace="~{sistema/component/base :: header}"></header>
+<header th:replace="~{sistema/component/base :: header}"></header>
 
-  <nav th:replace="~{sistema/component/base :: menu}"></nav>
-  
-  <!-- Contenido -->
-  <main id="main" class="main">
-    <div class="alert alert-success" role="alert">
-    
-    </div>
+<nav th:replace="~{sistema/component/base :: menu}"></nav>
 
+<!-- Contenido -->
+<main id="main" class="main">
+    <!-- Alerts -->
+    <span th:replace="~{sistema/component/base :: alerts}"></span>
     <div class="pagetitle">
-      <h1>Control de Productos</h1>
+        <h1>Control de Productos</h1>
     </div>
     <!-- Botones -->
     <div class="row">
-      <div class="col-lg-3">
-        <a class="btn btn-primary me-2 mb-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Nueva Producto</a>
-        
-        <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-          aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro de Producto</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <form class="row g-3" method="post">
-                  <div class="col-md-12">
-                    <label for="name" class="form-label">Nombre:</label>
-                    <input type="text" class="form-control" id="name" />
-                    <div class="invalid-feedback"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="mark" class="form-label">Marca:</label>
-                    <select class="form-select" aria-label="Default select example">
-                      <option value="">-Seleccionar-</option>
-                    </select>
-                    <div class="invalid-feedback"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Sub categoría:</label>
-                    <select class="form-select" aria-label="Default select example">
-                      <option value="">-Seleccionar-</option>
-                    </select>
-                    <div class="invalid-feedback"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="amount" class="form-label">Cantidad:</label>
-                    <input type="number" class="form-control" id="amount" />
-                    <div class="invalid-feedback"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="price" class="form-label">Precio:</label>
-                    <input type="text" class="form-control" id="price" />
-                    <div class="invalid-feedback"></div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-floating">
-                      <textarea class="form-control" id="description"
-                        style="height: 100px"></textarea>
-                      <label for="description">Descripción</label>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="text" class="form-label">Estado:</label>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="state" checked />
-                      <label class="form-check-label" for="state">Habilitar</label>
-                    </div>
-                    <div class="invalid-feedback"></div>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="col-lg-3">
+            <a class="btn btn-primary me-2 mb-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Nuevo
+                Producto</a>
 
-        <a class="btn btn-secondary me-2 mb-4" href="" target="_blank">Imprimir PDF</a>
-      </div>
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro de Producto</h1>
+                            <button type="button" class="btn-close btnClose" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form th:action="@{/system-sport-shop/inventario/productos}" th:object="${product}" method="post">
+                            <div class="modal-body">
+                                <div class="row g-3">
+                                    <input type="hidden" id="id" th:field="*{id}" />
+                                    <div class="col-md-12">
+                                        <label for="name" class="form-label">Nombre:</label>
+                                        <input type="text" class="form-control" id="name" th:field="*{name}" />
+                                        <div class="alert alert-danger p-sm-1" role="alert" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Marca:</label>
+                                        <select class="form-select" th:field="*{mark}">
+                                            <option value="">-Seleccionar-</option>
+                                            <option th:each="m : ${marks}" th:value="${m.id}" th:text="${m.name}"></option>
+                                        </select>
+                                        <div class="alert alert-danger p-sm-1" role="alert" th:if="${#fields.hasErrors('mark')}" th:errors="*{mark}"></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Sub categoría:</label>
+                                        <select class="form-select" th:field="*{subCategory}">
+                                            <option value="">-Seleccionar-</option>
+                                            <option th:each="subcate : ${subCategories}" th:value="${subcate.id}" th:text="${subcate.name}"></option>
+                                        </select>
+                                        <div class="alert alert-danger p-sm-1" role="alert" th:if="${#fields.hasErrors('subCategory')}"
+                                            th:errors="*{subCategory}"></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="amount" class="form-label">Cantidad:</label>
+                                        <input type="number" class="form-control" id="amount" th:field="*{amount}" />
+                                        <div class="alert alert-danger p-sm-1" role="alert" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="price" class="form-label">Precio:</label>
+                                        <input type="text" class="form-control" id="price" th:field="*{price}" />
+                                        <div class="alert alert-danger p-sm-1" role="alert" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" id="description" style="height: 100px" th:field="*{description}"></textarea>
+                                            <label>Descripción</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btnClose" data-bs-dismiss="modal">Cerrar</button>
+                                <input type="submit" class="btn btn-primary" value="Guardar"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <a class="btn btn-secondary me-2 mb-4" href="" target="_blank">Imprimir PDF</a>
+        </div>
     </div>
     <section class="section">
-      <div class="row justify-content-center">
-        <div class="col-lg-12">
-          <div class="card">
-            <div class="card-body">
-              <div class="row mt-3">
-                <div class="col-lg-12 overflow-hidden">
-                  <!-- Tabla de datos -->
-                  <table id="table" class="table table-hover">
-                    <thead>
-                      <tr class="text-center">
-                        <th class="text-center">ID</th>
-                        <th class="text-center">Nombre</th>
-                        <th class="text-center">Marca</th>
-                        <th class="text-center">Sub Categoría</th>
-                        <th class="text-center">Cantidad</th>
-                        <th class="text-center">Precio</th>
-                        <th class="text-center">Descripción</th>
-                        <th class="text-center">Estado</th>
-                        <th class="text-center">Usuario que registró</th>
-                        <th class="text-center">Fecha de registro</th>
-                        <th class="text-center">Usuario que modificó</th>
-                        <th class="text-center">Fecha de modificación</th>
-                        <th class="text-center">Acciones</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="text-center"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="text-center">
-                          <div class="d-flex justify-content-center align-items-center">
-                            <a class="btn btn-success me-2" href=""><i class="bi bi-pencil-fill"></i></a>
-                            <a class="btn btn-danger" href=""><i class="bi bi-trash-fill"></i></a>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mt-3">
+                            <div class="col-lg-12 overflow-hidden">
+                                <!-- Tabla de datos -->
+                                <table id="table" class="table table-hover">
+                                    <thead>
+                                    <tr class="text-center">
+                                        <th class="text-center">ID</th>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Marca</th>
+                                        <th class="text-center">Sub Categoría</th>
+                                        <th class="text-center">Cantidad</th>
+                                        <th class="text-center">Precio</th>
+                                        <th class="text-center">Descripción</th>
+                                        <th class="text-center">Estado</th>
+                                        <th class="text-center">Usuario que registró</th>
+                                        <th class="text-center">Fecha de registro</th>
+                                        <th class="text-center">Usuario que modificó</th>
+                                        <th class="text-center">Fecha de modificación</th>
+                                        <th class="text-center">Acciones</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="product : ${products}">
+                                        <td class="text-center" th:text="${product.id}"></td>
+                                        <td th:text="${product.name}"></td>
+                                        <td th:text="${product.mark.name}"></td>
+                                        <td th:text="${product.subCategory.name}"></td>
+                                        <td class="text-center" th:text="${product.amount}"></td>
+                                        <td class="text-end" th:text="${product.price}"></td>
+                                        <td th:text="${product.description}"></td>
+                                        <td class="text-center" th:text="${product.userHistory.state == 1 ? 'Activo' : 'Inactivo'}"></td>
+                                        <td th:text="${product.userHistory.userReg}"></td>
+                                        <td class="text-center" th:text="${product.userHistory.dateReg}"></td>
+                                        <td th:text="${product.userHistory.userMod}"></td>
+                                        <td class="text-center" th:text="${product.userHistory.dateMod}"></td>
+                                        <td class="text-center">
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <a class="btn btn-success me-2 btnEditar"
+                                                   th:href="@{/system-sport-shop/inventario/producto-edit(id=${product.id})}">
+                                                    <i class="bi bi-pencil-fill"></i>
+                                                </a>
+                                                <a class="btn btn-danger"
+                                                   th:href="@{/system-sport-shop/control/usuario-delete(id=${product.id})}">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </section>
-  </main>
+</main>
 
-  <span th:replace="~{sistema/component/base :: scripts}"></span>
+<span th:replace="~{sistema/component/base :: scripts}"></span>
+<script th:src="@{/sistema/js/product-data-ajax.js}"></script>
+<script th:src="@{/sistema/js/tabla-edit.js}"></script>
+<script>tableEdit("product");</script>
 </body>
 </html>

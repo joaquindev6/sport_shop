@@ -44,7 +44,6 @@ public class SystemUserController {
     @GetMapping("/control/usuarios")
     public String showSystemUsers(User user, Model model, SessionStatus sessionStatus) {
         dataShowUser(model);
-        sessionStatus.setComplete(); //En el caso que no se edite y vuelva entrar a usuarios el objeto se eliminara de la sesion
         return "sistema/users";
     }
 
