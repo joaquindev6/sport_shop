@@ -31,7 +31,7 @@ public class SystemClientController {
     private Validator validator;
 
     @InitBinder
-    public void initBinder(WebDataBinder webDataBinder) {
+    private void initBinder(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(validator);
         webDataBinder.registerCustomEditor(String.class, "names", new StringUppercaseEditor());
         webDataBinder.registerCustomEditor(String.class, "apePat", new StringUppercaseEditor());

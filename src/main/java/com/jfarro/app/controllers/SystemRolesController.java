@@ -25,7 +25,7 @@ public class SystemRolesController {
     private UserService userService;
 
     @InitBinder
-    public void initBinder(WebDataBinder webDataBinder) {
+    private void initBinder(WebDataBinder webDataBinder) {
         webDataBinder.registerCustomEditor(String.class, "name", new StringUppercaseEditor());
         webDataBinder.registerCustomEditor(String.class, "code", new StringUppercaseEditor());
         webDataBinder.registerCustomEditor(String.class, "description", new StringUppercaseEditor());
