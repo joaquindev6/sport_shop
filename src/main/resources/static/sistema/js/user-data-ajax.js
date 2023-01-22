@@ -52,7 +52,7 @@ $(document).ready(function() { //Permite la activacion del codigo
         myModal.show();
     });
 
-    $('.btnClose').on('click', function (evt) {
+    $('.btnClose, .btnNuevo').on('click', function (evt) {
         document.getElementById('id').value = null;
         document.getElementById('names').value = '';
         document.getElementById('apePat').value = '';

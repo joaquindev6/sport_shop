@@ -44,6 +44,7 @@ public class SystemUserController {
     @GetMapping("/control/usuarios")
     public String showSystemUsers(User user, Model model, SessionStatus sessionStatus) {
         dataShowUser(model);
+        sessionStatus.setComplete();
         return "sistema/users";
     }
 
@@ -52,16 +53,15 @@ public class SystemUserController {
         if (bindingResult.hasErrors()) {
             dataShowUser(model);
             model.addAttribute("errors", true);
-            sessionStatus.setComplete();
             return "sistema/users";
         }
-        userService.saveUser(user);
-        sessionStatus.setComplete();
         if (user.getId() != null && user.getId() > 0) {
             flash.addFlashAttribute("success", "Usuario editado exitosamente.");
         } else {
             flash.addFlashAttribute("success", "Usuario registrado exitosamente.");
         }
+        userService.saveUser(user);
+        sessionStatus.setComplete();
         return "redirect:/system-sport-shop/control/usuarios";
     }
 

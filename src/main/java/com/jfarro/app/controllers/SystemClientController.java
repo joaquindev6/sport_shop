@@ -54,13 +54,13 @@ public class SystemClientController {
             model.addAttribute("errors", true);
             return "sistema/clients";
         }
-        clientService.saveClient(client);
-        sessionStatus.setComplete(); //Para q me guarde los datos completos del cliente y pueda ser modificado
         if (client.getId() != null && client.getId() > 0) {
             flash.addFlashAttribute("success", "Cliente editado exitosamente.");
         } else {
             flash.addFlashAttribute("success", "Cliente registrado exitosamente.");
         }
+        clientService.saveClient(client);
+        sessionStatus.setComplete(); //Para q me guarde los datos completos del cliente y pueda ser modificado
         return "redirect:/system-sport-shop/control/clientes";
     }
 

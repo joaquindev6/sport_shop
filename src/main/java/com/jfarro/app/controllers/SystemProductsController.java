@@ -1,5 +1,6 @@
 package com.jfarro.app.controllers;
 
+import com.jfarro.app.editors.StringUppercaseEditor;
 import com.jfarro.app.models.domains.Mark;
 import com.jfarro.app.models.domains.Product;
 import com.jfarro.app.models.domains.ProductSubCategory;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,6 +26,12 @@ public class SystemProductsController {
     @Autowired
     private ProductService productService;
 
+    @InitBinder
+    private void initBinder(WebDataBinder webDataBinder) {
+        webDataBinder.registerCustomEditor(String.class, "name", new StringUppercaseEditor());
+        webDataBinder.registerCustomEditor(String.class, "description", new StringUppercaseEditor());
+    }
+
     @GetMapping("/inventario/productos")
     public String showSystemProducts(Product product, Model model, SessionStatus sessionStatus) {
         showDataProduct(model);
@@ -35,15 +43,16 @@ public class SystemProductsController {
     public String saveProduct(@Valid Product product, BindingResult bindingResult, Model model, SessionStatus sessionStatus, RedirectAttributes flash) {
         if (bindingResult.hasErrors()) {
             showDataProduct(model);
+            model.addAttribute("errors", true);
             return "sistema/products";
         }
-        productService.saveProduct(product);
-        sessionStatus.setComplete();
         if (product.getId() != null && product.getId() > 0) {
             flash.addFlashAttribute("success", "Producto editado exitosamente.");
         } else {
             flash.addFlashAttribute("success", "Producto registrado exitosamente.");
         }
+        productService.saveProduct(product);
+        sessionStatus.setComplete();
         return "redirect:/system-sport-shop/inventario/productos";
     }
 

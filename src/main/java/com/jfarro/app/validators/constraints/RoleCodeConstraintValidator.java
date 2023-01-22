@@ -7,6 +7,6 @@ public class RoleCodeConstraintValidator implements ConstraintValidator<RoleCode
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        return s.matches("[A-Z]+_[A-Z0-9]+");
+        return s.matches("[A-Za-z]+_[A-Za-z0-9]+");
     }
 }

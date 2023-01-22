@@ -1,5 +1,5 @@
 $(document).ready(function () {
-   $('.btnEditar').on(function (evt) {
+   $('.btnEditar').on('click',function (evt) {
        evt.preventDefault();
 
        let url = this.getAttribute('href');
@@ -25,4 +25,14 @@ $(document).ready(function () {
        let modal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {});
        modal.show();
    });
+
+   $('.btnClose, .btnNuevo').on('click', function (evt) {
+       document.getElementById('id').value = null;
+       document.getElementById('name').value = '';
+       document.getElementById('mark').value = '';
+       document.getElementById('subCategory').value = '';
+       document.getElementById('amount').value = '';
+       document.getElementById('price').value = '';
+       document.getElementById('description').value = '';
+   })
 });
