@@ -22,7 +22,7 @@ $(document).ready(function () {
            }
        }
 
-       let modal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {});
+           let modal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {});
        modal.show();
     });
 
