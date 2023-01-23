@@ -54,20 +54,17 @@
                                             <option value="">-Seleccionar-</option>
                                             <option th:each="subcate : ${subCategories}" th:value="${subcate.id}" th:text="${subcate.name}"></option>
                                         </select>
-                                        <div class="alert alert-danger p-sm-1" role="alert" th:if="${#fields.hasErrors('subCategory')}"
-                                            th:errors="*{subCategory}"></div>
+                                        <div class="alert alert-danger p-sm-1" role="alert" th:if="${#fields.hasErrors('subCategory')}" th:errors="*{subCategory}"></div>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="amount" class="form-label">Cantidad:</label>
                                         <input type="number" class="form-control" id="amount" th:field="*{amount}" />
-                                        <div class="alert alert-danger p-sm-1" role="alert" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">
-                                        </div>
+                                        <div class="alert alert-danger p-sm-1" role="alert" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></div>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="price" class="form-label">Precio:</label>
                                         <input type="text" class="form-control" id="price" th:field="*{price}" />
-                                        <div class="alert alert-danger p-sm-1" role="alert" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">
-                                        </div>
+                                        <div class="alert alert-danger p-sm-1" role="alert" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-floating">
@@ -136,7 +133,7 @@
                                                     <i class="bi bi-pencil-fill"></i>
                                                 </a>
                                                 <a class="btn btn-danger"
-                                                   th:href="@{/system-sport-shop/control/usuario-delete(id=${product.id})}">
+                                                   th:href="@{/system-sport-shop/inventario/producto-delete(id=${product.id})}">
                                                     <i class="bi bi-trash-fill"></i>
                                                 </a>
                                             </div>

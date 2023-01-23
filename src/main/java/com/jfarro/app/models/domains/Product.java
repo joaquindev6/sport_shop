@@ -1,5 +1,6 @@
 package com.jfarro.app.models.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -40,11 +41,13 @@ public class Product implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_sub_categoria")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @NotNull
     private ProductSubCategory subCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_marca")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @NotNull
     private Mark mark;
 
