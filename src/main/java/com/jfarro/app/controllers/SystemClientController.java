@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/system-sport-shop")
-@SessionAttributes("client")
+@SessionAttributes("client") //Guada todos los datos recuperados del selectId para poder modificarlo y guardarlo nuevamente
 public class SystemClientController {
 
     @Autowired

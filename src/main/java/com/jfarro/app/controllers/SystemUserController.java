@@ -4,10 +4,15 @@ import com.jfarro.app.editors.StringUppercaseEditor;
 import com.jfarro.app.models.domains.DocumentType;
 import com.jfarro.app.models.domains.Role;
 import com.jfarro.app.models.domains.User;
+import com.jfarro.app.services.FileDirectoryService;
 import com.jfarro.app.services.UserService;
+import com.jfarro.app.utils.PathDirectoryEnums;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,8 +20,11 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +39,9 @@ public class SystemUserController {
     @Autowired
     @Qualifier("user")
     private Validator validator;
+
+    @Autowired
+    private FileDirectoryService fileDirectoryService;
 
     @InitBinder
     private void initBinder(WebDataBinder webDataBinder) {
@@ -50,12 +61,31 @@ public class SystemUserController {
     }
 
     @PostMapping("/control/usuarios")
-    public String saveUser(@Valid User user, BindingResult bindingResult, SessionStatus sessionStatus, Model model, RedirectAttributes flash) {
+    public String saveUser(@Valid User user, BindingResult bindingResult,
+                           SessionStatus sessionStatus, Model model,
+                           @RequestParam("file") MultipartFile file, RedirectAttributes flash) {
         if (bindingResult.hasErrors()) {
             dataShowUser(model);
             model.addAttribute("errors", true);
             return "sistema/users";
         }
+
+        if (!file.isEmpty()) {
+            //En el caso que la foto del usuario exista junto con su id, se reemplazara la foto eliminandolo al anterior
+            if (user.getId() != null && user.getId() > 0
+                    && user.getPhoto() != null && user.getPhoto().length() > 0) {
+                fileDirectoryService.deleteFile(user.getPhoto(), PathDirectoryEnums.USER_FILE.directorys);
+            }
+
+            //Guarda la foto en el directorio establecido y el nombre en l base de datos
+            try {
+                String filename = fileDirectoryService.copyFile(file, PathDirectoryEnums.USER_FILE.directorys);
+                user.setPhoto(filename);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         if (user.getId() != null && user.getId() > 0) {
             flash.addFlashAttribute("success", "Usuario editado exitosamente.");
         } else {
@@ -83,7 +113,7 @@ public class SystemUserController {
         return "redirect:/system-sport-shop/control/usuarios";
     }
 
-    @GetMapping("/control/usuario-edit")
+    @GetMapping({"/control/usuario-edit", "/control/user-data"})
     @ResponseBody
     public User selectIdUser(@RequestParam("id") Long id, Model model) { //Cuando se edita hay que guardarlo en la sesion para matener el id del usuario seleccionado
         User user = null;
@@ -99,6 +129,19 @@ public class SystemUserController {
             return null;
         }
         return user;
+    }
+
+    @GetMapping("/photousers/{filename:.+}")
+    public ResponseEntity<Resource> showDataPhoto(@PathVariable("filename") String filename) {
+        Resource resource = null;
+        try {
+            resource = fileDirectoryService.loadFile(filename, PathDirectoryEnums.USER_FILE.directorys);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"".concat(resource.getFilename()).concat("\""))
+                .body(resource);
     }
 
     private void dataShowUser(Model model) {

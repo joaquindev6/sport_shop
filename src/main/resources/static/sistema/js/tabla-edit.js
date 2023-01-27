@@ -6,12 +6,13 @@ function tableEdit(option) {
             $(document).ready(function () {
                 $('#table').DataTable({
                     columnDefs: [
-                        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]},
-                        { orderable: false, targets: [8, 14] },
+                        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]},
+                        { orderable: false, targets: [9, 15]},
                         { width: "50px", targets: [0]},
-                        { width: "320px", targets: [1, 4, 6]},
-                        { width: "500px", targets: [9]},
-                        { width: "200px", targets: [2, 3, 5, 7, 8, 10, 11, 12, 13]}
+                        { width: "320px", targets: [2, 5, 7]},
+                        { width: "500px", targets: [10]},
+                        { width: "200px", targets: [3, 4, 6, 8, 11, 12, 13, 14]},
+                        { width: "100px", targets: [1, 9]}
                     ],
                     scrollX: "2000px",
                     language: {
@@ -262,5 +263,6 @@ function tableEdit(option) {
                     }
                 });
             });
+            break;
     }
 }

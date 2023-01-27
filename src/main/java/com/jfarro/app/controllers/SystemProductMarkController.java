@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/system-sport-shop")
-@SessionAttributes("mark")
+@SessionAttributes("mark") //Guada todos los datos recuperados del selectId para poder modificarlo y guardarlo nuevamente
 public class SystemProductMarkController {
 
     @Autowired
@@ -31,14 +31,15 @@ public class SystemProductMarkController {
     }
 
     @GetMapping("/inventario/marcas")
-    public String showSystemMarks(Mark mark, Model model, SessionStatus sessionStatus) {
+    public String showSystemMarks(Mark mark, Model model) {
         showDataMark(model);
-        sessionStatus.setComplete();
         return "sistema/product-mark";
     }
 
     @PostMapping("/inventario/marcas")
-    public String saveMark(@Valid Mark mark, BindingResult bindingResult, Model model, RedirectAttributes flash, SessionStatus sessionStatus) {
+    public String saveMark(@Valid @ModelAttribute("mark") Mark mark, BindingResult bindingResult,
+                           Model model, SessionStatus sessionStatus,
+                           RedirectAttributes flash) {
         if (bindingResult.hasErrors()) {
             showDataMark(model);
             model.addAttribute("errors", true);
@@ -54,7 +55,7 @@ public class SystemProductMarkController {
         return "redirect:/system-sport-shop/inventario/marcas";
     }
 
-    @GetMapping("inventario/marca-delete")
+    @GetMapping("/inventario/marca-delete")
     public String updateState(@RequestParam("id") Long id, RedirectAttributes flash) {
         if (id > 0) {
             Optional<Mark> markOptional = productService.findByIdMarks(id);

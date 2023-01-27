@@ -22,7 +22,7 @@ $(document).ready(function () {
         modal.show();
     });
 
-    $('.btnClose, .btnNuevo').on('click', function (evt) {
+    $('.btnClose, .btnNuevo').on('click', function () {
         document.getElementById('id').value = null;
         document.getElementById('name').value = '';
         document.getElementById('description').value = '';

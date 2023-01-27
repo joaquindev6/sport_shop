@@ -52,7 +52,7 @@ public class SystemProductsController {
     @GetMapping("/inventario/productos")
     public String showSystemProducts(Product product, Model model, SessionStatus sessionStatus) {
         showDataProduct(model);
-//        sessionStatus.setComplete();
+        sessionStatus.setComplete();
         return "sistema/products";
     }
 
