@@ -1,10 +1,9 @@
 package com.jfarro.app.models.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -40,13 +39,18 @@ public class Product implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_sub_categoria")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @NotNull
     private ProductSubCategory subCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_marca")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @NotNull
     private Mark mark;
+
+    @Column(name = "foto")
+    private String photo;
 
     @Embedded
     @NotNull
@@ -118,5 +122,13 @@ public class Product implements Serializable {
 
     public void setUserHistory(UserHistory userHistory) {
         this.userHistory = userHistory;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

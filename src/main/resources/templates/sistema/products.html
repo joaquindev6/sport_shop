@@ -31,7 +31,7 @@
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro de Producto</h1>
                             <button type="button" class="btn-close btnClose" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form th:action="@{/system-sport-shop/inventario/productos}" th:object="${product}" method="post">
+                        <form th:action="@{/system-sport-shop/inventario/productos}" th:object="${product}" method="post" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <div class="row g-3">
                                     <input type="hidden" id="id" th:field="*{id}" />
@@ -70,6 +70,10 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12">
+                                        <label for="file" class="form-label">Ingresa la foto del producto:</label>
+                                        <input class="form-control" type="file" id="file" name="file">
+                                    </div>
+                                    <div class="col-md-12">
                                         <div class="form-floating">
                                             <textarea class="form-control" id="description" style="height: 100px" th:field="*{description}"></textarea>
                                             <label>Descripción</label>
@@ -101,6 +105,7 @@
                                     <thead>
                                     <tr class="text-center">
                                         <th class="text-center">ID</th>
+                                        <th class="text-center">Foto</th>
                                         <th class="text-center">Nombre</th>
                                         <th class="text-center">Marca</th>
                                         <th class="text-center">Sub Categoría</th>
@@ -118,12 +123,18 @@
                                     <tbody>
                                     <tr th:each="product : ${products}">
                                         <td class="text-center" th:text="${product.id}"></td>
+                                        <td class="text-center">
+                                            <a class="showPhoto" th:href="@{/system-sport-shop/inventario/product-data(id=${product.id})}">
+                                                <img class="rounded mx-auto d-block" style="max-width: 70px;" th:if="${product.photo != null && #strings.length(product.photo) > 0}"
+                                                     th:src="@{'/system-sport-shop/photoproducts/' + ${product.photo}}" th:alt="${product.photo}"/>
+                                            </a>
+                                        </td>
                                         <td th:text="${product.name}"></td>
                                         <td th:text="${product.mark.name}"></td>
                                         <td th:text="${product.subCategory.name}"></td>
                                         <td class="text-center" th:text="${product.amount}"></td>
                                         <td class="text-end" th:text="${product.price}"></td>
-                                        <td th:text="${product.description}"></td>
+                                        <td class="text-center" th:text="${product.description}"></td>
                                         <td class="text-center" th:text="${product.userHistory.state == 1 ? 'Activo' : 'Inactivo'}"></td>
                                         <td th:text="${product.userHistory.userReg}"></td>
                                         <td class="text-center" th:text="${product.userHistory.dateReg}"></td>
@@ -146,6 +157,24 @@
                                 </table>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para mostrar la foto de producto mas grande -->
+        <div class="modal fade" id="showPothoProduct" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 600px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close btnClose" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img class="rounded mx-auto d-block" style="max-width: 500px;" id="imgPhoto"/>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <p id="titleProduct"></p>
                     </div>
                 </div>
             </div>

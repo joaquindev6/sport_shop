@@ -35,4 +35,30 @@ $(document).ready(function () {
        document.getElementById('price').value = '';
        document.getElementById('description').value = '';
    })
+
+    //A traves del response body de controlador de producto obtengo los datos del producto por medio del request y con ajax realizo la peticion
+    $('.showPhoto').on('click', function (evt) {
+        evt.preventDefault();
+
+        console.log("ENTRO")
+
+        let urlDataProduct = this.getAttribute('href');
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.open('GET', urlDataProduct, true);
+        xhttp.send();
+
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let product = JSON.parse(this.responseText);
+
+                document.getElementById('imgPhoto').setAttribute('src',
+                    '/system-sport-shop/photoproducts/' + product.photo);
+                document.getElementById('titleProduct').innerHTML = product.name;
+            }
+        }
+
+        let modal = new bootstrap.Modal(document.getElementById('showPothoProduct'), {});
+        modal.show();
+    });
 });
