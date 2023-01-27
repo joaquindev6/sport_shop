@@ -72,4 +72,26 @@ $(document).ready(function() { //Permite la activacion del codigo
         //     window.location.href = '/system-sport-shop/control/usuarios';
         // }, 1000)
     });
+
+    $('.showPhoto').on('click', function (evt) {
+        evt.preventDefault();
+
+        let url = this.getAttribute('href');
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.open('GET', url, true);
+        xhttp.send();
+
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let user = JSON.parse(this.responseText);
+
+                document.getElementById('imgPhoto').setAttribute('src', '/system-sport-shop/photousers/' + user.photo);
+                document.getElementById('titleModalPhoto').innerHTML = user.names + ' ' + user.apePat + ' ' + user.apeMat;
+            }
+        }
+
+        let modal = new bootstrap.Modal(document.getElementById('showModalPhoto'), {});
+        modal.show();
+    });
 });

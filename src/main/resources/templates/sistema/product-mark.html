@@ -1,120 +1,121 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <span th:replace="~{sistema/component/base :: head}"></span>
-  <title>Marcas de Productos | JC System</title>
+    <span th:replace="~{sistema/component/base :: head}"></span>
+    <title>Marcas de Productos | JC System</title>
 </head>
 <body>
-  <header th:replace="~{sistema/component/base :: header}"></header>
+<header th:replace="~{sistema/component/base :: header}"></header>
 
-  <nav th:replace="~{sistema/component/base :: menu}"></nav>
+<nav th:replace="~{sistema/component/base :: menu}"></nav>
 
-  <!-- Contenido -->
-  <main id="main" class="main">
-    <div class="alert alert-success" role="alert">
-    </div>
+<!-- Contenido -->
+<main id="main" class="main">
+    <!-- Alerts -->
+    <span th:replace="~{sistema/component/base :: alerts}"></span>
     <div class="pagetitle">
-      <h1>Control Marcas de Productos</h1>
+        <h1>Control Marcas de Productos</h1>
     </div>
     <!-- Botones -->
     <div class="row">
-      <div class="col-lg-3">
-        <a class="btn btn-primary me-2 mb-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Nueva Marca</a>
-        
-        <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-          aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro de Marca</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <form class="row g-3" method="post">
-                  <div class="col-md-12">
-                    <label for="name" class="form-label">Nombre:</label>
-                    <input type="text" class="form-control" id="name" />
-                    <div class="invalid-feedback"></div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-floating">
-                      <textarea class="form-control" id="description"
-                        style="height: 100px"></textarea>
-                      <label for="description">Descripción</label>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Estado:</label>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="state" checked />
-                      <label class="form-check-label" for="state">Habilitar</label>
-                    </div>
-                    <div class="invalid-feedback"></div>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="col-lg-3">
+            <a class="btn btn-primary me-2 mb-4 btnNuevo" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Nueva Marca</a>
 
-        <a class="btn btn-secondary me-2 mb-4" href="" target="_blank">Imprimir PDF</a>
-      </div>
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro de Marca</h1>
+                            <button type="button" class="btn-close btnClose" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form th:action="@{/system-sport-shop/inventario/marcas}" th:object="${mark}" method="post">
+                            <div class="modal-body">
+                                <input type="hidden" id="id" th:field="*{id}"/>
+                                <div class="row g-3">
+                                    <div class="col-md-12">
+                                        <label for="name" class="form-label">Nombre:</label>
+                                        <input type="text" class="form-control" id="name" th:field="*{name}"/>
+                                        <div class="alert alert-danger p-sm-1" role="alert" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" id="description" style="height: 100px" th:field="*{description}"></textarea>
+                                            <label for="description">Descripción</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btnClose" data-bs-dismiss="modal">Cerrar</button>
+                                <input type="submit" class="btn btn-primary" value="Guardar"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <a class="btn btn-secondary me-2 mb-4" href="" target="_blank">Imprimir PDF</a>
+        </div>
     </div>
     <section class="section">
-      <div class="row">
-        <div class="col-lg-10">
-          <div class="card">
-            <div class="card-body">
-              <div class="row mt-3">
-                <div class="col-lg-12 overflow-hidden">
-                  <!-- Tabla de datos -->
-                  <table id="table" class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th class="text-center">ID</th>
-                        <th class="text-center">Nombre</th>
-                        <th class="text-center">Descripción</th>
-                        <th class="text-center">Estado</th>
-                        <th class="text-center">Usuario que registró</th>
-                        <th class="text-center">Fecha de registro</th>
-                        <th class="text-center">Usuario que modificó</th>
-                        <th class="text-center">Fecha de modificación</th>
-                        <th class="text-center">Acciones</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="text-center">
-                          <div class="d-flex justify-content-center align-items-center">
-                            <a class="btn btn-success me-2" href=""><i class="bi bi-pencil-fill"></i></a>
-                            <a class="btn btn-danger" href=""><i class="bi bi-trash-fill"></i></a>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mt-3">
+                            <div class="col-lg-12 overflow-hidden">
+                                <!-- Tabla de datos -->
+                                <table id="table" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">ID</th>
+                                            <th class="text-center">Nombre</th>
+                                            <th class="text-center">Descripción</th>
+                                            <th class="text-center">Estado</th>
+                                            <th class="text-center">Usuario que registró</th>
+                                            <th class="text-center">Fecha de registro</th>
+                                            <th class="text-center">Usuario que modificó</th>
+                                            <th class="text-center">Fecha de modificación</th>
+                                            <th class="text-center">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="mark : ${marks}">
+                                            <td th:text="${mark.id}"></td>
+                                            <td th:text="${mark.name}"></td>
+                                            <td th:text="${mark.description}"></td>
+                                            <td th:text="${mark.userHistory.state == 1 ? 'Activo' : 'Inactivo'}"></td>
+                                            <td th:text="${mark.userHistory.userReg}"></td>
+                                            <td th:text="${mark.userHistory.dateReg}"></td>
+                                            <td th:text="${mark.userHistory.userMod}"></td>
+                                            <td th:text="${mark.userHistory.dateMod}"></td>
+                                            <td class="text-center">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <a class="btn btn-success me-2 btnEditar" th:href="@{/system-sport-shop/inventario/marca-edit(id=${mark.id})}">
+                                                        <i class="bi bi-pencil-fill"></i>
+                                                    </a>
+                                                    <a class="btn btn-danger" th:href="@{/system-sport-shop/inventario/marca-delete(id=${mark.id})}">
+                                                        <i class="bi bi-trash-fill"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </section>
-  </main>
+</main>
 
-  <span th:replace="~{sistema/component/base :: scripts}"></span>
+<span th:replace="~{sistema/component/base :: scripts}"></span>
+<script th:src="@{/sistema/js/product-mark-ajax.js}"></script>
+<script th:src="@{/sistema/js/tabla-edit.js}"></script>
+<script>tableEdit("product-mark");</script>
 </body>
 </html>

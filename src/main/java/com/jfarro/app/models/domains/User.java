@@ -72,6 +72,9 @@ public class User implements Serializable {
     @Column(name = "observacion")
     private String observation;
 
+    @Column(name = "foto")
+    private String photo;
+
     @Embedded
     @NotNull
     private UserHistory userHistory;
@@ -188,6 +191,14 @@ public class User implements Serializable {
         this.roles = roles;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -201,6 +212,7 @@ public class User implements Serializable {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", observation='" + observation + '\'' +
+                ", photo='" + photo + '\'' +
                 ", userHistory=" + userHistory +
                 ", roles=" + roles +
                 '}';

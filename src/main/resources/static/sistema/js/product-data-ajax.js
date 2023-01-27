@@ -40,8 +40,6 @@ $(document).ready(function () {
     $('.showPhoto').on('click', function (evt) {
         evt.preventDefault();
 
-        console.log("ENTRO")
-
         let urlDataProduct = this.getAttribute('href');
         const xhttp = new XMLHttpRequest();
 
@@ -54,11 +52,11 @@ $(document).ready(function () {
 
                 document.getElementById('imgPhoto').setAttribute('src',
                     '/system-sport-shop/photoproducts/' + product.photo);
-                document.getElementById('titleProduct').innerHTML = product.name;
+                document.getElementById('titleModalPhoto').innerHTML = product.name;
             }
         }
 
-        let modal = new bootstrap.Modal(document.getElementById('showPothoProduct'), {});
+        let modal = new bootstrap.Modal(document.getElementById('showModalPhoto'), {});
         modal.show();
     });
 });
