@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/system-sport-shop")
-@SessionAttributes("mark") //Guada todos los datos recuperados del selectId para poder modificarlo y guardarlo nuevamente
+@SessionAttributes("mark") //Guarda todos los datos recuperados del selectId para poder modificarlo y guardarlo nuevamente
 public class SystemProductMarkController {
 
     @Autowired

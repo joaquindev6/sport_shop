@@ -7,6 +7,7 @@ import com.jfarro.app.models.domains.User;
 import com.jfarro.app.services.FileDirectoryService;
 import com.jfarro.app.services.UserService;
 import com.jfarro.app.utils.PathDirectoryEnums;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,7 +20,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,7 +30,6 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/system-sport-shop")
-@SessionAttributes("user")
 public class SystemUserController {
 
     @Autowired
@@ -54,21 +53,36 @@ public class SystemUserController {
     }
 
     @GetMapping("/control/usuarios")
-    public String showSystemUsers(User user, Model model, SessionStatus sessionStatus) {
-        dataShowUser(model);
-        sessionStatus.setComplete();
+    public String showSystemUsers(User user, Model model, HttpServletRequest request) {
+        dataShowUser(model, request);
         return "sistema/users";
     }
 
     @PostMapping("/control/usuarios")
     public String saveUser(@Valid User user, BindingResult bindingResult,
-                           SessionStatus sessionStatus, Model model,
+                           HttpServletRequest request, Model model,
                            @RequestParam("file") MultipartFile file, RedirectAttributes flash) {
         if (bindingResult.hasErrors()) {
-            dataShowUser(model);
+            dataShowUser(model, request);
             model.addAttribute("errors", true);
             return "sistema/users";
         }
+
+        //Obteniendo datos de la sesion al buscar por id
+        if (user.getId() != null && user.getId() > 0) {
+            User userSession = (User) request.getSession().getAttribute("user");
+
+            user.getUserHistory().setState(userSession.getUserHistory().getState());
+            user.getUserHistory().setUserReg(userSession.getUserHistory().getUserReg());
+            user.getUserHistory().setDateReg(userSession.getUserHistory().getDateReg());
+            user.getUserHistory().setUserMod(userSession.getUserHistory().getUserMod());
+            user.getUserHistory().setDateMod(userSession.getUserHistory().getDateMod());
+
+            if (userSession.getPhoto() != null && userSession.getPhoto().length() > 0) {
+                user.setPhoto(userSession.getPhoto());
+            }
+        }
+        request.getSession().removeAttribute("user");
 
         if (!file.isEmpty()) {
             //En el caso que la foto del usuario exista junto con su id, se reemplazara la foto eliminandolo al anterior
@@ -92,7 +106,6 @@ public class SystemUserController {
             flash.addFlashAttribute("success", "Usuario registrado exitosamente.");
         }
         userService.saveUser(user);
-        sessionStatus.setComplete();
         return "redirect:/system-sport-shop/control/usuarios";
     }
 
@@ -115,18 +128,14 @@ public class SystemUserController {
 
     @GetMapping({"/control/usuario-edit", "/control/user-data"})
     @ResponseBody
-    public User selectIdUser(@RequestParam("id") Long id, Model model) { //Cuando se edita hay que guardarlo en la sesion para matener el id del usuario seleccionado
+    public User selectIdUser(@RequestParam("id") Long id, HttpServletRequest request) { //Cuando se edita hay que guardarlo en la sesion para matener el id del usuario seleccionado
         User user = null;
         if (id > 0) {
             Optional<User> userOptional = userService.findByIdUser(id);
             if (userOptional.isPresent()) {
                 user = userOptional.get();
-                model.addAttribute("user", user);
-            } else {
-                return null;
+                request.getSession().setAttribute("user", user);
             }
-        } else {
-            return null;
         }
         return user;
     }
@@ -144,7 +153,9 @@ public class SystemUserController {
                 .body(resource);
     }
 
-    private void dataShowUser(Model model) {
+    private void dataShowUser(Model model, HttpServletRequest request) {
+        request.getSession().removeAttribute("user");
+
         model.addAttribute("usersActive", true); //Para activar la seleccion de las paginas en el menu
 
         List<User> users = userService.findAllUsers();

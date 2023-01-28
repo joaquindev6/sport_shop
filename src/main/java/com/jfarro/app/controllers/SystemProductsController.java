@@ -8,7 +8,6 @@ import com.jfarro.app.services.FileDirectoryService;
 import com.jfarro.app.services.ProductService;
 import com.jfarro.app.utils.PathDirectoryEnums;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,22 +20,17 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/system-sport-shop")
 public class SystemProductsController {
-
-    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private ProductService productService;
@@ -52,7 +46,7 @@ public class SystemProductsController {
 
     @GetMapping("/inventario/productos")
     public String showSystemProducts(Product product, Model model, HttpServletRequest request) {
-        showDataProduct(model);
+        showDataProduct(model, request);
         request.getSession().removeAttribute("product");
         return "sistema/products";
     }
@@ -62,7 +56,7 @@ public class SystemProductsController {
                               Model model, @RequestParam("file") MultipartFile file,
                               RedirectAttributes flash, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            showDataProduct(model);
+            showDataProduct(model, request);
             model.addAttribute("errors", true);
             return "sistema/products";
         }
@@ -151,7 +145,9 @@ public class SystemProductsController {
                 .body(resource);
     }
 
-    private void showDataProduct(Model model) {
+    private void showDataProduct(Model model, HttpServletRequest request) {
+        request.getSession().removeAttribute("product");
+
         model.addAttribute("productsActive", true);
 
         List<Product> products = productService.findAllProducts();
