@@ -7,6 +7,8 @@ import com.jfarro.app.models.domains.ProductSubCategory;
 import com.jfarro.app.services.FileDirectoryService;
 import com.jfarro.app.services.ProductService;
 import com.jfarro.app.utils.PathDirectoryEnums;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +34,6 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/system-sport-shop")
-@SessionAttributes("product")
 public class SystemProductsController {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
@@ -50,21 +51,37 @@ public class SystemProductsController {
     }
 
     @GetMapping("/inventario/productos")
-    public String showSystemProducts(Product product, Model model, SessionStatus sessionStatus) {
+    public String showSystemProducts(Product product, Model model, HttpServletRequest request) {
         showDataProduct(model);
-        sessionStatus.setComplete();
+        request.getSession().removeAttribute("product");
         return "sistema/products";
     }
 
     @PostMapping("/inventario/productos")
     public String saveProduct(@Valid Product product, BindingResult bindingResult,
-                              Model model, SessionStatus sessionStatus,
-                              @RequestParam("file") MultipartFile file, RedirectAttributes flash) {
+                              Model model, @RequestParam("file") MultipartFile file,
+                              RedirectAttributes flash, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             showDataProduct(model);
             model.addAttribute("errors", true);
             return "sistema/products";
         }
+
+        if (product.getId() != null && product.getId() > 0) {
+            //Obteniendo datos de la sesion al recuperar por id
+            Product productSession = (Product) request.getSession().getAttribute("product");
+
+            product.getUserHistory().setState(productSession.getUserHistory().getState());
+            product.getUserHistory().setUserReg(productSession.getUserHistory().getUserReg());
+            product.getUserHistory().setDateReg(productSession.getUserHistory().getDateReg());
+            product.getUserHistory().setUserMod(productSession.getUserHistory().getUserMod());
+            product.getUserHistory().setDateMod(productSession.getUserHistory().getDateMod());
+
+            if (productSession.getPhoto() != null && productSession.getPhoto().length() > 0) {
+                product.setPhoto(productSession.getPhoto());
+            }
+        }
+        request.getSession().removeAttribute("product"); //Una ves recuperado los datos de la sesion se elimina el objeto de la sesion
 
         if (!file.isEmpty()) {
 
@@ -87,7 +104,6 @@ public class SystemProductsController {
             flash.addFlashAttribute("success", "Producto registrado exitosamente.");
         }
         productService.saveProduct(product);
-        sessionStatus.setComplete();
         return "redirect:/system-sport-shop/inventario/productos";
     }
 
@@ -110,13 +126,13 @@ public class SystemProductsController {
 
     @GetMapping({"/inventario/producto-edit", "/inventario/product-data"})
     @ResponseBody
-    public Product selectIdProduct(@RequestParam("id") Long id, Model model) {
+    public Product selectIdProduct(HttpServletRequest request, @RequestParam("id") Long id) {
         Product product = null;
         if (id > 0) {
             Optional<Product> productOptional = productService.findByIdProduct(id);
             if (productOptional.isPresent()) {
                 product = productOptional.get();
-                model.addAttribute("product", product);
+                request.getSession().setAttribute("product", product);
             }
         }
         return product;

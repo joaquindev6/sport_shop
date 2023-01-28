@@ -34,7 +34,7 @@ $(document).ready(function () {
        document.getElementById('amount').value = '';
        document.getElementById('price').value = '';
        document.getElementById('description').value = '';
-   })
+   });
 
     //A traves del response body de controlador de producto obtengo los datos del producto por medio del request y con ajax realizo la peticion
     $('.showPhoto').on('click', function (evt) {
