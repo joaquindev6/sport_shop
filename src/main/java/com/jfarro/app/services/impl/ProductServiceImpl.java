@@ -95,6 +95,11 @@ public class ProductServiceImpl implements ProductService {
         subCategoryRepository.updateState(state, id);
     }
 
+    @Override
+    public List<Product> findAllBySubCategoryName(String name) {
+        return productRepository.findAllBySubCategoryName(name);
+    }
+
     //------------------------ ProductCategory ------------------------
     @Override
     @Transactional(readOnly = true)

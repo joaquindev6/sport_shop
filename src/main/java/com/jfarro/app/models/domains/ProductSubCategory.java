@@ -26,7 +26,7 @@ public class ProductSubCategory implements Serializable {
     @Column(name = "descripcion")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_categoria")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @NotNull

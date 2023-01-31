@@ -24,6 +24,7 @@ public interface ProductService {
     Optional<ProductSubCategory> findByIdProductSubCategory(Long id);
     void saveProductSubCategory(ProductSubCategory productSubCategory);
     void updateStateProductSubCategory(Byte state, Long id);
+    List<Product> findAllBySubCategoryName(String name);
 
     //ProductCategory
     Page<ProductCategory> findAllPagesProductCategories(Pageable pageable);

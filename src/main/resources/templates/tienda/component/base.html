@@ -92,9 +92,8 @@
                     <div class="navbar-nav d-flex justify-content-center me-3 mt-2">
                         <a class="position-relative text-dark" th:href="@{/carrito}">
                             <i class="fa-solid fa-cart-shopping fs-4"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                99+
-                            </span>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                  th:if="${productList != null}" th:text="${productList.size}"></span>
                         </a>
                     </div>
                     <ul class="navbar-nav mb-2 mb-lg-0 ms-2">
@@ -140,33 +139,33 @@
             </div>
             <div class="offcanvas-body">
                 <h5 class="card-title mb-4">Ingrese sus datos personales</h5>
-                <form th:action="@{/save-client}" th:object="${client}" method="post">
+                <form th:action="@{/}" th:object="${client}" method="post">
                     <div class="mb-3">
                         <label for="names" class="form-label">Nombres:</label>
-                        <input type="text" class="form-control" id="names" th:field="*{names}"/>
+                        <input type="text" class="form-control" id="names" th:field="*{names}" th:errorclass="'is-invalid'"/>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('names')}" th:errors="*{names}"></div>
                     </div>
                     <div class="row mb-3 g-3">
                         <div class="col-6">
                             <label for="apePat" class="form-label">Apellido paterno:</label>
-                            <input type="text" class="form-control" id="apePat" th:field="*{apePat}"/>
+                            <input type="text" class="form-control" id="apePat" th:field="*{apePat}" th:errorclass="'is-invalid'"/>
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('apePat')}" th:errors="*{apePat}"></div>
                         </div>
                         <div class="col-6">
                             <label for="apeMat" class="form-label">Apellido materno:</label>
-                            <input type="text" class="form-control" id="apeMat" th:field="*{apeMat}"/>
+                            <input type="text" class="form-control" id="apeMat" th:field="*{apeMat}" th:errorclass="'is-invalid'"/>
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('apeMat')}" th:errors="*{apeMat}"></div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo electrónico:</label>
-                        <input type="text" class="form-control" id="email" th:field="*{email}"/>
+                        <input type="text" class="form-control" id="email" th:field="*{email}" th:errorclass="'is-invalid'"/>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                     </div>
                     <div class="row mb-3 g-3">
                         <div class="col-6">
                             <label for="password" class="form-label">Contraseña:</label>
-                            <input type="password" class="form-control" id="password" th:field="*{password}"/>
+                            <input type="password" class="form-control" id="password" th:field="*{password}" th:errorclass="'is-invalid'"/>
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
                         </div>
                         <div class="col-6">
@@ -184,13 +183,7 @@
             </div>
         </div>
     </header>
-    <span th:fragment="alerts">
-        <div th:object="${client}" th:remove="tag">
-            <div th:if="${#fields.hasErrors('*')}" class="row mt-5 alert alert-danger">
-                <div th:each="err : ${#fields.errors('*')}" th:text="${err}"></div>
-            </div>
-        </div>
-    </span>
+
     <footer th:fragment="footer" class="bg-secondary">
         <section class="container">
             <div class="row mt-3">
@@ -285,8 +278,16 @@
             </div>
         </section>
     </footer>
+
     <span th:fragment="scripts">
         <script th:src="@{/tienda/framework/bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <script th:src="@{/tienda/js/jquery-3.6.3.min.js}"></script>
+
+        <!-- Si encuentra errores al registrar un cliente muestra el canvas -->
+        <script th:if="${errorValidation != null && errorValidation}">
+            let offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasExample'), {});
+            offcanvas.show();
+        </script>
     </span>
 </body>
 </html>

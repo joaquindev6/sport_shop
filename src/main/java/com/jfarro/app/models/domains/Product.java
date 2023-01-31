@@ -37,13 +37,13 @@ public class Product implements Serializable {
     @Column(name = "descripcion")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_sub_categoria")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @NotNull
     private ProductSubCategory subCategory;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_marca")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @NotNull

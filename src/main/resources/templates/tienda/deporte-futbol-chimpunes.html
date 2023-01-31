@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <span th:replace="~{tienda/component/base :: head}"></span>
     <title>Futbol</title>
@@ -17,58 +17,17 @@
             </nav>
         </div>
         <div class="row g-3 mb-4">
-            <div class="col-lg-3">
+            <div class="col-lg-3" th:each="product : ${products}">
                 <div class="card shadow-sm">
-                    <img th:src="@{/tienda/img/Chimpunes_X_Speedportal.1_Pasto.jpg}" class="card-img-top" alt="...">
+                    <img th:if="${#strings.length(product.photo) > 0}" th:src="@{'/system-sport-shop/photoproducts/' + ${product.photo}}"
+                         class="card-img-top" th:alt="${product.photo}">
                     <div class="card-body">
-                        <h5 class="card-title">Chimpunes X Speedportal+ Pasto Natural Seco</h5>
-                        <div class="card-text">Stock: 10</div>
-                        <div class="card-text fst-italic fw-semibold">Precio: S/999</div>
+                        <h5 class="card-title" th:text="${product.name}"></h5>
+                        <div class="card-text" th:text="'Marca: ' + ${product.mark.name}"></div>
+                        <div class="card-text" th:text="'Stock: ' + ${product.amount}"></div>
+                        <div class="card-text fst-italic fw-semibold" th:text="'Precio: S/' + ${product.price}"></div>
                         <div class="d-grid mt-3">
-                            <a class="btn btn-success" href=""><i class="fa-solid fa-cart-shopping"></i> Añadir al carrito</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="card shadow-sm">
-                    <div class="d-flex justify-content-center">
-                        <img th:src="@{/tienda/img/Chimpunes_X_Speedportal.1_Pasto.jpg}" class="card-img-top" alt="...">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Chimpunes X Speedportal+ Pasto Natural Seco</h5>
-                        <div class="card-text">Stock: 10</div>
-                        <div class="card-text fst-italic fw-semibold">Precio: S/999</div>
-                        <div class="d-grid mt-3">
-                            <a class="btn btn-success" href=""><i class="fa-solid fa-cart-shopping"></i> Añadir al carrito</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="card shadow-sm">
-                    <div class="d-flex justify-content-center">
-                        <img th:src="@{/tienda/img/Chimpunes_X_Speedportal.1_Pasto.jpg}" class="card-img-top" alt="...">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Chimpunes X Speedportal+ Pasto Natural Seco</h5>
-                        <div class="card-text">Stock: 10</div>
-                        <div class="card-text fst-italic fw-semibold">Precio: S/999</div>
-                        <div class="d-grid mt-3">
-                            <a class="btn btn-success" href=""><i class="fa-solid fa-cart-shopping"></i> Añadir al carrito</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="card shadow-sm">
-                    <img th:src="@{/tienda/img/Chimpunes_X_Speedportal.1_Pasto.jpg}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Chimpunes X Speedportal+ Pasto Natural Seco</h5>
-                        <div class="card-text">Stock: 10</div>
-                        <div class="card-text fst-italic fw-semibold">Precio: S/999</div>
-                        <div class="d-grid mt-3">
-                            <a class="btn btn-success" href=""><i class="fa-solid fa-cart-shopping"></i> Añadir al carrito</a>
+                            <a class="btn btn-success" th:href="@{/carrito/additem(id=${product.id})}"><i class="fa-solid fa-cart-shopping"></i> Añadir al carrito</a>
                         </div>
                     </div>
                 </div>
