@@ -8,84 +8,92 @@
     <header th:replace="~{tienda/component/base :: menu}"></header>
     <div class="container">
         <div class="row mt-4">
+            <span th:replace="~{tienda/component/base :: alerts}"></span>
+        </div>
+        <div class="row mt-4">
             <div class="col">
                 <h3 th:if="${productList != null}" th:text="'Mi carrito (' + ${productList.size()} + ' items)'"></h3>
             </div>
         </div>
-        <div class="row justify-content-center mb-5">
-            <div class="col-md-9 col-lg-8 col-xl-8 mt-3">
-                <div class="card shadow">
-                    <form action="" method="post">
-                        <div class="row card-body m-2 car-container" th:each="product : ${productList}">
-                            <div class="col-lg-6 col-xl-3 car-image">
-                                <img class="img-fluid" th:src="@{'/system-sport-shop/photoproducts/' + ${product.photo}}"/>
-                            </div>
-                            <div class="col-lg-6 col-xl-7 car-data">
-                                <h5 class="pe-1" th:text="${product.name}"></h5>
-                                <div class="car-data-price mt-2" th:text="'Marca: ' + ${product.mark.name}"></div>
-                                <div class="car-data-price mt-2" th:text="'Precio: S/' + ${product.price}" th:id="'precio_' + ${product.id}"></div>
-                                <div class="row mt-2">
-                                    <div class="col-xs-8 col-md-8 col-lg-6 col-xl-4 overflow-hidden">
-                                        <div class="input-group mb-3" id="baseInputs">
-                                            <input type="number" class="form-control text-center" value="0" name="cantidad"
-                                                   th:id="'cantidad_' + ${product.id}" th:onchange="'calcularImporte('   + ${product.id} + ');'"/>
+        <form th:action="@{/carrito/save_sale}" method="post">
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-9 col-lg-8 col-xl-8 mt-3">
+                    <div class="card shadow">
+
+                            <div class="row card-body m-2 car-container" th:each="product : ${productList}">
+                                <div class="col-lg-6 col-xl-3 car-image">
+                                    <img class="img-fluid" th:src="@{'/system-sport-shop/photoproducts/' + ${product.photo}}"/>
+                                </div>
+                                <div class="col-lg-6 col-xl-7 car-data">
+                                    <h5 class="pe-1" th:text="${product.name}"></h5>
+                                    <div class="car-data-price mt-2" th:text="'Marca: ' + ${product.mark.name}"></div>
+                                    <div class="car-data-price mt-2" th:text="'Precio: S/' + ${product.price}" th:id="'precio_' + ${product.id}"></div>
+                                    <div class="row mt-2">
+                                        <div class="col-xs-8 col-md-8 col-lg-6 col-xl-4 overflow-hidden">
+                                            <div class="input-group mb-3" id="baseInputs">
+                                                <input type="number" class="form-control text-center" value="1" name="cantidad[]"
+                                                       th:id="'cantidad_' + ${product.id}" th:onchange="'calcularImporte('   + ${product.id} + ');'"
+                                                       pattern="[0-9]+" min="1" max="50"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-1">
+                                            <a class="text-secondary" th:href="@{'/carrito/remove/' + ${product.id}}" th:id="'remove_' + ${product.id}">
+                                                <i class="fa-solid fa-trash mt-1" style="font-size: 25px;"></i>
+                                            </a>
                                         </div>
                                     </div>
-                                    <div class="col-1">
-                                        <a class="text-secondary" th:href="@{'/carrito/remove/' + ${product.id}}" th:id="'remove_' + ${product.id}">
-                                            <i class="fa-solid fa-trash mt-1" style="font-size: 25px;"></i>
-                                        </a>
-                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-xl-2 text-end">
+                                    <input type="hidden" th:value="${product.id}" name="importes"/>
+                                    <h5 th:id="'importe_' + ${product.id}"></h5>
+                                    <input type="hidden" th:id="'importeInput_' + ${product.id}" name="subTotal[]"/>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-xl-2 text-end">
-                                <input type="hidden" th:value="${product.id}" name="importes"/>
-                                <h5 th:id="'importe_' + ${product.id}"></h5>
-                            </div>
-                        </div>
-                    </form>
+
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-9 col-lg-4 col-xl-4 mt-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row mb-2">
-                            <div class="col">
-                                <h3 class="card-title">Resumen del pedido</h3>
+                <div class="col-md-9 col-lg-4 col-xl-4 mt-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <h3 class="card-title">Resumen del pedido</h3>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row me-2 ms-2">
-                            <div class="col">
-                                <h6 class="card-subtitle mb-2 text-muted">SubTotal:</h6>
+                            <div class="row me-2 ms-2">
+                                <div class="col">
+                                    <h6 class="card-subtitle mb-2 text-muted">SubTotal:</h6>
+                                </div>
+                                <div class="col text-end">
+                                    <h6 class="card-subtitle mb-2 text-muted" id="precioSubTotal"></h6>
+                                </div>
                             </div>
-                            <div class="col text-end">
-                                <h6 class="card-subtitle mb-2 text-muted" id="precioSubTotal"></h6>
+                            <div class="row me-2 ms-2">
+                                <div class="col">
+                                    <h6 class="card-subtitle mb-2 text-muted">Descuentos:</h6>
+                                </div>
+                                <div class="col text-end">
+                                    <h6 class="card-subtitle mb-2 text-muted">S/ 0</h6>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row me-2 ms-2">
-                            <div class="col">
-                                <h6 class="card-subtitle mb-2 text-muted">Descuentos:</h6>
+                            <div class="row mt-3 mb-2">
+                                <div class="col">
+                                    <h4 class="card-title">Total: </h4>
+                                </div>
+                                <div class="col text-end">
+                                    <h4 class="card-title" id="precioTotal"></h4>
+                                    <input type="hidden" value="" id="total" name="total"/>
+                                </div>
                             </div>
-                            <div class="col text-end">
-                                <h6 class="card-subtitle mb-2 text-muted">S/ 0</h6>
+                            <div class="d-grid gap-2 col-12 mx-auto">
+                                <input type="submit" class="btn btn-primary p-3" id="saleFinish" value="Finalizar compra"/>
+                                <a class="btn btn-secondary p-3" th:href="@{/}">Continuar comprando</a>
                             </div>
-                        </div>
-                        <div class="row mt-3 mb-2">
-                            <div class="col">
-                                <h4 class="card-title">Total: </h4>
-                            </div>
-                            <div class="col text-end">
-                                <h4 class="card-title" id="precioTotal"></h4>
-                            </div>
-                        </div>
-                        <div class="d-grid gap-2 col-12 mx-auto">
-                            <button class="btn btn-primary p-3" type="button">Finalizar compra</button>
-                            <button class="btn btn-secondary p-3" type="button">Continuar comprando</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
     <footer th:replace="~{tienda/component/base :: footer}"></footer>
     <span th:replace="~{tienda/component/base :: scripts}"></span>

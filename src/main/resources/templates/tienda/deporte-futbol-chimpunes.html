@@ -24,10 +24,11 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="${product.name}"></h5>
                         <div class="card-text" th:text="'Marca: ' + ${product.mark.name}"></div>
-                        <div class="card-text" th:text="'Stock: ' + ${product.amount}"></div>
+                        <div class="card-text" th:class="${product.amount == 0 ? 'text-danger' : ''}" th:text="'Stock: ' + ${product.amount}"></div>
                         <div class="card-text fst-italic fw-semibold" th:text="'Precio: S/' + ${product.price}"></div>
                         <div class="d-grid mt-3">
-                            <a class="btn btn-success" th:href="@{/carrito/additem(id=${product.id})}"><i class="fa-solid fa-cart-shopping"></i> Añadir al carrito</a>
+                            <input type="hidden" th:value="${product.id}" name="idProducts"/>
+                            <a class="btn btn-success" th:href="@{/carrito/additem(id=${product.id})}" th:id="'addCar_' + ${product.id}"><i class="fa-solid fa-cart-shopping"></i> Añadir al carrito</a>
                         </div>
                     </div>
                 </div>
@@ -36,5 +37,6 @@
     </div>
     <footer th:replace="~{tienda/component/base :: footer}"></footer>
     <span th:replace="~{tienda/component/base :: scripts}"></span>
+    <script th:src="@{/tienda/js/shopping.js}"></script>
 </body>
 </html>

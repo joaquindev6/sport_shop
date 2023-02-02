@@ -13,8 +13,21 @@ window.onload = function () {
 
         calcularImporte(id.value);
 
-        let cantidadSession = localStorage.getItem('cantidadStorage_' + id.value) == null ? 1 : localStorage.getItem('cantidadStorage_' + id.value);
-        document.getElementById('cantidad_' + id.value).setAttribute('value', cantidadSession);
+        //En el caso que no se haya guardado nada en el localstorage no entra a la condicion
+        let cantidadSession = 0;
+        if (localStorage.getItem('cantidadStorage_' + id.value) != null) {
+            cantidadSession = localStorage.getItem('cantidadStorage_' + id.value);
+            document.getElementById('cantidad_' + id.value).setAttribute('value', cantidadSession);
+        }
+
+        //Verifica si el producto seleccionado y se encuentra en el carrito
+        let idLocalProduct = localStorage.getItem('idLocalProduct');
+        if (idLocalProduct === id.value) {
+            let cantidadProducto = ++cantidadSession;
+            document.getElementById('cantidad_' + id.value).setAttribute('value', cantidadProducto);
+            localStorage.setItem('cantidadStorage_' + id.value, cantidadProducto);
+            localStorage.removeItem('idLocalProduct');
+        }
     })
 }
 
@@ -46,6 +59,7 @@ function calcularTotal() {
     valores.forEach(function (id) {
 
         let importe = document.getElementById('importe_' + id.value).innerHTML;
+        document.getElementById('importeInput_' + id.value).value = importe; //Pasando datos al imput
         importe = parseFloat(importe);
 
         subTotal += importe;
@@ -55,5 +69,18 @@ function calcularTotal() {
 
         document.getElementById('precioSubTotal').innerHTML = 'S/ ' + subTotal;
         document.getElementById('precioTotal').innerHTML = 'S/ ' + total;
+
+        document.getElementById('total').value = total; //Pasando datos al input
     });
 }
+
+//Al finalizar la compra elimina el localStorage con las cantidades
+document.getElementById('saleFinish').addEventListener('click', function () {
+    let inputIds = document.getElementsByName('importes');
+    const valores = Array.from(inputIds);
+
+    valores.forEach(function (id) {
+        localStorage.removeItem('cantidadStorage_' + id.value);
+    });
+});
+

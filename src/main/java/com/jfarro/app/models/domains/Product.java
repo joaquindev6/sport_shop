@@ -37,7 +37,7 @@ public class Product implements Serializable {
     @Column(name = "descripcion")
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER) //Lo converti a eager porque al obtener el producto y como era una carga peresoza no me obtenia los datos
     @JoinColumn(name = "id_sub_categoria")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @NotNull
