@@ -8,6 +8,7 @@ import com.jfarro.app.validators.ClientValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -51,11 +52,11 @@ public class TiendaIndexController {
 
     @PostMapping({"/", "/inicio"})
     public String saveClient(@Valid Client client, BindingResult bindingResult, Model model,
-                             @RequestParam(name = "passconfirm") String passwordConfirm,
+                             @RequestParam(name = "passconfirm") String passwordConfirm, @RequestParam(name = "password") String password,
                              SessionStatus sessionStatus) {
 
         //Confirma que las contraseñas ingresedas sean iguales
-        if (!client.getPassword().equals(passwordConfirm)) {
+        if (!password.equals(passwordConfirm)) {
             model.addAttribute("errorValidation", true);
             return "tienda/index";
         }

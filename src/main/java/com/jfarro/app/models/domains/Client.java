@@ -1,5 +1,6 @@
 package com.jfarro.app.models.domains;
 
+import com.jfarro.app.utils.PasswordEncoderByCrypt;
 import com.jfarro.app.validators.constraints.LastNamesRegex;
 import com.jfarro.app.validators.constraints.NamesRegex;
 import com.jfarro.app.validators.constraints.PasswordRegex;
@@ -46,15 +47,21 @@ public class Client implements Serializable {
 
     @Column(name = "password")
     @NotBlank
-    @PasswordRegex
     private String password;
 
     @Column(name = "observacion")
     private String observation;
 
+    private String authority;
+
     @Embedded
     @NotNull
     private UserHistory userHistory;
+
+    @PrePersist
+    private void prePersist() {
+        authority = "ROLE_USER";
+    }
 
     public Client() {
         this.userHistory = new UserHistory();
@@ -105,7 +112,7 @@ public class Client implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = PasswordEncoderByCrypt.encoderByCryp(password);
     }
 
     public String getObservation() {
@@ -122,6 +129,14 @@ public class Client implements Serializable {
 
     public void setUserHistory(UserHistory userHistory) {
         this.userHistory = userHistory;
+    }
+
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.jfarro.app.services.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -61,11 +62,13 @@ public class SystemClientController {
             model.addAttribute("errors", true);
             return "sistema/clients";
         }
+
         if (client.getId() != null && client.getId() > 0) {
             flash.addFlashAttribute("success", "Cliente editado exitosamente.");
         } else {
             flash.addFlashAttribute("success", "Cliente registrado exitosamente.");
         }
+
         clientService.saveClient(client);
         sessionStatus.setComplete();
         return "redirect:/system-sport-shop/control/clientes";

@@ -11,6 +11,7 @@ public interface ClientService {
     List<Client> findALlClients();
     Page<Client> findAllPagesClients(Pageable pageable);
     Optional<Client> findByIdClient(Long id);
+    Client findByEmailClient(String email);
     void saveClient(Client client);
     void updateStateClient(Byte state, Long id);
 }

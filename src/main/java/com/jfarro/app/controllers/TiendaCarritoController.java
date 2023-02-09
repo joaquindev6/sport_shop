@@ -63,7 +63,6 @@ public class TiendaCarritoController {
             Optional<Product> productOptional = productService.findByIdProduct(idProducto);
             if (productOptional.isPresent()) {
                 products.add(productOptional.get());
-                model.addAttribute("cantidad", 0);
                 model.addAttribute("productList", products);
             }
         }

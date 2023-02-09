@@ -14,6 +14,7 @@ public interface UserService {
     Page<User> findAllPagesUsers(Pageable pageable);
     List<User> findAllUsers();
     Optional<User> findByIdUser(Long id);
+    User findByUsernameUser(String username);
     void saveUser(User user);
     void updateStateUser(Byte state, Long id);
 

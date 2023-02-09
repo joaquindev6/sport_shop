@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <span th:replace="~{sistema/component/base :: head}"></span>
     <title>Marcas de Productos | JC System</title>
@@ -19,7 +19,8 @@
     <!-- Botones -->
     <div class="row">
         <div class="col-lg-3">
-            <a class="btn btn-primary me-2 mb-4 btnNuevo" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Nueva Marca</a>
+            <a class="btn btn-primary me-2 mb-4 btnNuevo" data-bs-toggle="modal" data-bs-target="#staticBackdrop" sec:authorize="hasRole('ADMIN')"
+               href="">Nueva Marca</a>
 
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -78,7 +79,7 @@
                                             <th class="text-center">Fecha de registro</th>
                                             <th class="text-center">Usuario que modificó</th>
                                             <th class="text-center">Fecha de modificación</th>
-                                            <th class="text-center">Acciones</th>
+                                            <th class="text-center" sec:authorize="hasRole('ADMIN')">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -91,7 +92,7 @@
                                             <td th:text="${mark.userHistory.dateReg}"></td>
                                             <td th:text="${mark.userHistory.userMod}"></td>
                                             <td th:text="${mark.userHistory.dateMod}"></td>
-                                            <td class="text-center">
+                                            <td class="text-center" sec:authorize="hasRole('ADMIN')">
                                                 <div class="d-flex justify-content-center align-items-center">
                                                     <a class="btn btn-success me-2 btnEditar" th:href="@{/system-sport-shop/inventario/marca-edit(id=${mark.id})}">
                                                         <i class="bi bi-pencil-fill"></i>

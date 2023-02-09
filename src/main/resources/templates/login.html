@@ -17,7 +17,7 @@
               <div class="d-flex justify-content-center py-4">
                 <a href="" class="logo d-flex align-items-center w-auto">
                   <img src="" alt="">
-                  <span class="d-none d-lg-block">JC System</span>
+                  <span class="d-none d-lg-block">SportShop</span>
                 </a>
               </div>
 
@@ -28,7 +28,7 @@
                     <p class="text-center small">Ingrese su nombre de usuario y contraseña</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" th:action="@{/system-sport-shop/login}" method="post" novalidate>
+                  <form class="row g-3 needs-validation" th:action="@{/login}" method="post" novalidate>
 
                     <div class="col-12">
                       <label for="username" class="form-label">Nombre de usuario</label>
@@ -47,6 +47,10 @@
 
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Ingresar</button>
+                    </div>
+
+                    <div class="col-12">
+                      <p class="text-center small"><a th:href="@{/}">Volver a inicio</a></p>
                     </div>
                   </form>
                 </div>

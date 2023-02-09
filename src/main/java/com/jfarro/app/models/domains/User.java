@@ -1,6 +1,7 @@
 package com.jfarro.app.models.domains;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.jfarro.app.utils.PasswordEncoderByCrypt;
 import com.jfarro.app.validators.constraints.LastNamesRegex;
 import com.jfarro.app.validators.constraints.NamesRegex;
 import com.jfarro.app.validators.constraints.NroDocumentRegex;
@@ -66,7 +67,6 @@ public class User implements Serializable {
 
     @Column(name = "password")
     @NotBlank
-    @PasswordRegex
     private String password;
 
     @Column(name = "observacion")
@@ -79,7 +79,7 @@ public class User implements Serializable {
     @NotNull
     private UserHistory userHistory;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "tbl_usuarios_roles",
             joinColumns = @JoinColumn(name = "id_usuario"),
@@ -164,7 +164,7 @@ public class User implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = PasswordEncoderByCrypt.encoderByCryp(password);
     }
 
     public String getObservation() {

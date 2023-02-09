@@ -13,4 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query("UPDATE User u SET u.userHistory.state = :state WHERE u.id = :id")
     void updateState(@Param("state") Byte state, @Param("id") Long id);
+
+    User findByUsername(String username);
 }

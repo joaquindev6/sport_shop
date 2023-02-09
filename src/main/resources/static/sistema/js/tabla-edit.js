@@ -6,8 +6,8 @@ function tableEdit(option) {
             $(document).ready(function () {
                 $('#table').DataTable({
                     columnDefs: [
-                        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]},
-                        { orderable: false, targets: [9, 15]},
+                        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]},
+                        { orderable: false, targets: [9]},
                         { width: "50px", targets: [0]},
                         { width: "320px", targets: [2, 5, 7]},
                         { width: "500px", targets: [10]},
@@ -44,8 +44,8 @@ function tableEdit(option) {
             $(document).ready(function () {
                 $('#table').DataTable({
                     columnDefs: [
-                        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]},
-                        { orderable: false, targets: [6, 11] },
+                        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]},
+                        { orderable: false, targets: [6] },
                         { width: "50px", targets: [0]},
                         { width: "320px", targets: [1, 4]},
                         { width: "500px", targets: [5]},
@@ -81,12 +81,12 @@ function tableEdit(option) {
             $(document).ready(function () {
                 $('#table').DataTable({
                     columnDefs: [
-                        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]},
-                        { orderable: false, targets: [7, 1, 13] },
+                        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]},
+                        { orderable: false, targets: [7, 1] },
                         { width: "50px", targets: [0] },
                         { width: "400", targets: [2] },
                         { width: "500px", targets: [7] },
-                        { width: "200px", targets: [3, 8, 9, 10, 11] },
+                        { width: "200px", targets: [3, 8, 9, 10, 11, 12] },
                         { width: "150px", targets: [4] },
                         { width: "100px", targets: [1, 5, 6] }
                     ],
@@ -120,8 +120,8 @@ function tableEdit(option) {
             $(document).ready(function () {
                 $('#table').DataTable({
                     columnDefs: [
-                        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]},
-                        { orderable: false, targets: [4, 9] },
+                        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6, 7, 8]},
+                        { orderable: false, targets: [4] },
                         { width: "50px", targets: [0] },
                         { width: "250", targets: [1, 2] },
                         { width: "500px", targets: [3] },
@@ -157,8 +157,8 @@ function tableEdit(option) {
             $(document).ready(function () {
                 $('#table').DataTable({
                     columnDefs: [
-                        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6, 7, 8]},
-                        { orderable: false, targets: [3, 8] },
+                        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6, 7]},
+                        { orderable: false, targets: [3] },
                         { width: "50px", targets: [0] },
                         { width: "250", targets: [1, 4, 6] },
                         { width: "500px", targets: [2] },
@@ -194,8 +194,8 @@ function tableEdit(option) {
             $(document).ready(function () {
                 $('#table').DataTable({
                     columnDefs: [
-                        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]},
-                        { orderable: false, targets: [4, 9] },
+                        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6, 7, 8]},
+                        { orderable: false, targets: [4] },
                         { width: "50px", targets: [0] },
                         { width: "250", targets: [1] },
                         { width: "500px", targets: [3] },
@@ -231,8 +231,8 @@ function tableEdit(option) {
             $(document).ready(function () {
                 $('#table').DataTable({
                     columnDefs: [
-                        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6, 7, 8]},
-                        { orderable: false, targets: [3, 8] },
+                        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6, 7]},
+                        { orderable: false, targets: [3] },
                         { width: "50px", targets: [0] },
                         { width: "250", targets: [1, 4, 6] },
                         { width: "500px", targets: [2] },

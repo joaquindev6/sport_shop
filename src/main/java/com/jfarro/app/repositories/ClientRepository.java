@@ -13,4 +13,6 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @Modifying
     @Query("UPDATE Client c SET c.userHistory.state = :state WHERE c.id = :id")
     void updateState(@Param("state") Byte state, @Param("id") Long id);
+
+    Client findByEmail(String email);
 }

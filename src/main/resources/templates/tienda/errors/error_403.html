@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <span th:replace="~{tienda/component/base :: head}"></span>
+    <title>Mensaje</title>
+</head>
+<body>
+<header th:replace="~{tienda/component/base :: menu}"></header>
+<div class="container">
+    <div class="row mt-4">
+        <span th:replace="~{tienda/component/base :: alerts}"></span>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <h3>No tienes acceso a esta página.</h3>
+        </div>
+    </div>
+</div>
+<footer th:replace="~{tienda/component/base :: footer}"></footer>
+<span th:replace="~{tienda/component/base :: scripts}"></span>
+<script th:src="@{/tienda/js/shoppingcar.js}"></script>
+</body>
+</html>
